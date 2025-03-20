@@ -7,32 +7,32 @@ import './editor.scss';
 export default function Edit( { attributes, setAttributes, clientId } ) {
     const { collapsed, oneAtATime, margin, padding, textColor, backgroundColor, activeTextColor, activeBackgroundColor } = attributes;
 
-    // Function to generate inline styles based on block attributes
+    // Generate the inline styles based on block attributes
     const getStyle = () => {
         const style = {};
         if ( padding ) {
-            style['--wp--custom--accordion--paddingTop'] = padding.top;
-            style['--wp--custom--accordion--paddingRight'] = padding.right;
-            style['--wp--custom--accordion--paddingBottom'] = padding.bottom;
-            style['--wp--custom--accordion--paddingLeft'] = padding.left;
+            style['--wp--custom--accordion--padding-top'] = padding.top;
+            style['--wp--custom--accordion--padding-right'] = padding.right;
+            style['--wp--custom--accordion--padding-bottom'] = padding.bottom;
+            style['--wp--custom--accordion--padding-left'] = padding.left;
         }
         if ( margin ) {
-            style['--wp--custom--accordion--marginTop'] = margin.top;
-            style['--wp--custom--accordion--marginRight'] = margin.right;
-            style['--wp--custom--accordion--marginBottom'] = margin.bottom;
-            style['--wp--custom--accordion--marginLeft'] = margin.left;
+            style['--wp--custom--accordion--margin-top'] = margin.top;
+            style['--wp--custom--accordion--margin-right'] = margin.right;
+            style['--wp--custom--accordion--margin-bottom'] = margin.bottom;
+            style['--wp--custom--accordion--margin-left'] = margin.left;
         }
         if ( textColor ) {
-            style['--wp--custom--accordion--textColor'] = textColor;
+            style['--wp--custom--accordion--text-color'] = textColor;
         }
         if ( backgroundColor ) {
-            style['--wp--custom--accordion--backgroundColor'] = backgroundColor;
+            style['--wp--custom--accordion--background-color'] = backgroundColor;
         }
         if ( activeTextColor ) {
-            style['--wp--custom--accordion--activeTextColor'] = activeTextColor;
+            style['--wp--custom--accordion--active-text-color'] = activeTextColor;
         }
         if ( activeBackgroundColor ) {
-            style['--wp--custom--accordion--activeBackgroundColor'] = activeBackgroundColor;
+            style['--wp--custom--accordion--active-background-color'] = activeBackgroundColor;
         }
         return style;
     };
@@ -42,14 +42,14 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
         style: getStyle(),
     } );
 
-    // Function to add a new pane
+    // Add a new pane
     const addPane = () => {
         const innerBlocks = wp.data.select( 'core/block-editor' ).getBlocks( clientId );
 
-        // Add a new pane block
+        // Add a new pane block...
         const paneBlock = wp.blocks.createBlock( 'hs-blocks/accordion-pane', {} );
 
-        // And insert it
+        // ... and insert it
         wp.data.dispatch( 'core/block-editor' ).insertBlock(
             paneBlock,
             innerBlocks.length,

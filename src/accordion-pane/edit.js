@@ -38,7 +38,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
         <div { ...useBlockProps({ className: isActive ? 'active' : '' }) }>
 
             
-            <div className="pane-header" style={{ color: 'var(--wp--custom--accordion--textColor)', backgroundColor: 'var(--wp--custom--accordion--backgroundColor)', margin: 'var(--wp--custom--accordion--marginTop) var(--wp--custom--accordion--marginRight) var(--wp--custom--accordion--marginBottom) var(--wp--custom--accordion--marginLeft)', padding: 'var(--wp--custom--accordion--paddingTop) var(--wp--custom--accordion--paddingRight) var(--wp--custom--accordion--paddingBottom) var(--wp--custom--accordion--paddingLeft)' }} onClick={ toggleActive }>
+            <div className="pane-header" style={{ color: 'var(--wp--custom--accordion--text-color)', backgroundColor: 'var(--wp--custom--accordion--background-color)', margin: 'var(--wp--custom--accordion--margin-top) var(--wp--custom--accordion--margin-right) var(--wp--custom--accordion--margin-bottom) var(--wp--custom--accordion--margin-left)', padding: 'var(--wp--custom--accordion--padding-top) var(--wp--custom--accordion--padding-right) var(--wp--custom--accordion--padding-bottom) var(--wp--custom--accordion--padding-left)' }} onClick={ toggleActive }>
 
                 <RichText
                     tagName="h2"
@@ -51,7 +51,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
                     className="pane-switch"
                 />
             </div>
-            <div className="pane-content" style={{ margin: '0 var(--wp--custom--accordion--marginRight) 0 var(--wp--custom--accordion--marginLeft)', padding: '0 var(--wp--custom--accordion--paddingRight) 0 var(--wp--custom--accordion--paddingLeft)' }}>
+            <div className="pane-content" style={{ margin: '0 var(--wp--custom--accordion--margin-right) 0 var(--wp--custom--accordion--margin-left)', padding: '0 var(--wp--custom--accordion--padding-right) 0 var(--wp--custom--accordion--padding-left)' }}>
                 <InnerBlocks
                     template={ CONTENT_TEMPLATE }
                     templateLock={ false }

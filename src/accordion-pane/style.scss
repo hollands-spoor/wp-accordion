@@ -6,14 +6,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: background-color var(--wp--custom--accordion--transitionTime) ease-out;
-    color: var(--wp--custom--accordion--textColor);
-    background-color: var(--wp--custom--accordion--backgroundColor);
+    transition: background-color var(--wp--custom--accordion--transition-time) ease-out;
+    color: var(--wp--custom--accordion--text-color);
+    background-color: var(--wp--custom--accordion--background-color);
 }
 
 .wp-block-hs-blocks-accordion-pane.active > .pane-header {
-    color: var(--wp--custom--accordion--activeTextColor);
-    background-color: var(--wp--custom--accordion--activeBackgroundColor);
+    color: var(--wp--custom--accordion--active-text-color);
+    background-color: var(--wp--custom--accordion--active-background-color);
 }
 
 .wp-block-hs-blocks-accordion-pane .pane-header h2 {
@@ -24,7 +24,7 @@
 .wp-block-hs-blocks-accordion-pane .pane-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height var(--wp--custom--accordion--transitionTime) ease-out;
+    transition: max-height var(--wp--custom--accordion--transition-time) ease-out;
 }
 
 .wp-block-hs-blocks-accordion-pane.active > .pane-content {
@@ -33,10 +33,10 @@
 
 .wp-block-hs-blocks-accordion-pane .pane-header .pane-switch {
     cursor: pointer;
-    transition: transform var(--wp--custom--accordion--transitionTime) ease-out;
+    transition: transform var(--wp--custom--accordion--transition-time) ease-out;
 }
 
 .wp-block-hs-blocks-accordion-pane.active > .pane-header > .pane-switch {
     transform: rotate(180deg);
-    transition: transform var(--wp--custom--accordion--transitionTime) ease-out; /* Ensure transition applies on active state */
+    transition: transform var(--wp--custom--accordion--transition-time) ease-out; /* Ensure transition applies on active state */
 }

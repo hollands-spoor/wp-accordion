@@ -6,55 +6,76 @@ Stable tag:        1.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Accordion block.
+Wordpress accordion block.
 
 == Description ==
 
-Extremely simple accordion plugin. Containing 2 blocks: Accordion and Accordion-pane. 
+Simple accordion plugin providing 2 blocks: Accordion and Accordion-pane. 
 
 == Installation ==
 
-1. Upload the plugin files to the `/wp-content/plugins/accordion` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
+Upload the plugin files to the `/wp-content/plugins/accordion` directory, or install the plugin through the WordPress plugins screen directly.
+
+Activate the plugin through the 'Plugins' screen in WordPress
 
 == Use ==
 
-Drag an Accordion block into the post or page and use the 'Add pane' button at the bottom of the block to add pane-blocks.
+Drag an Accordion block into a post or page and use the 'Add pane' button at the bottom of the block to add pane-blocks.
  
 == styling ==
-At the root some basic styling variables are defined that can be overwritten by your theme or ad hoc by the user in de block-editor. These are:
 
-    --wp--custom--accordion--transitionTime: 0.1s;
-    --wp--custom--accordion--marginTop: 0px;
-    --wp--custom--accordion--marginRight: 0px;
-    --wp--custom--accordion--marginBottom: 0.1em;
-    --wp--custom--accordion--marginLeft: 0px;
-    --wp--custom--accordion--paddingTop: 0.5em;
-    --wp--custom--accordion--paddingRight: 2em;
-    --wp--custom--accordion--paddingBottom: 0.5em;
-    --wp--custom--accordion--paddingLeft: 2em;
-    --wp--custom--accordion--textColor: #ffffff;
-    --wp--custom--accordion--backgroundColor: #666666;
-    --wp--custom--accordion--activeTextColor: #ffffff;
-    --wp--custom--accordion--activeBackgroundColor: #999999;
+At the root some basic styling variables are defined that can be overwritten by your theme. Most of these can be changed ad hoc by the user in de block-editor. These are:
+
+    --wp--custom--accordion--transition-time: 0.1s;
+    --wp--custom--accordion--margin-top: 0px;
+    --wp--custom--accordion--margin-right: 0px;
+    --wp--custom--accordion--margin-bottom: 0.1em;
+    --wp--custom--accordion--margin-left: 0px;
+    --wp--custom--accordion--padding-top: 0.5em;
+    --wp--custom--accordion--padding-right: 2em;
+    --wp--custom--accordion--padding-bottom: 0.5em;
+    --wp--custom--accordion--padding-left: 2em;
+    --wp--custom--accordion--text-color: #ffffff;
+    --wp--custom--accordion--background-color: #666666;
+    --wp--custom--accordion--active-text-color: #ffffff;
+    --wp--custom--accordion--active-background-color: #999999;
+
+The default values can also be defined in the theme.json of your (child-) theme:
+
+Add them to the theme.json like so: 
+
+"settings": {
+    "custom": {
+        "accordion": {
+            "transitionTime": "0.1s",
+            "marginTop": "0px",
+            "marginRight": "0px",
+            "marginBottom": "0.1em",
+            "marginLeft": "0px",
+            "paddingTop": "0.5em",
+            "paddingRight": "2em",
+            "paddingBottom": "0.5em",
+            "paddingLeft": "2em",
+            "backgroundColor" : "#666666",
+            "textColor": "#ffffff",
+            "activeBackgroundColor": "#999999",
+            "activeTextColor": "#ffffff"
+        }
+    }
+}
+
 
 
     
 
 == Accessability ==
-The pane-headers have a tab-index. I the enter-key is pressed while a pane-headers has focus, a click-event is triggered.
-
-
+The pane-headers have a tab-index. I the Enter-key is pressed while a pane-header has focus, a click-event is triggered on that pane-header thereby activating / opening it.
 
 == Frequently Asked Questions ==
 
 = A question that someone might have =
 
 An answer to that question.
-
-= What about foo bar? =
-
-Answer to foo bar dilemma.
 
 == Screenshots ==
 
@@ -68,4 +89,10 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 = 1.0.0 =
 * Release
+
+== Roadmap ==
+
+Maybe open a pane when some element in it receives focus. 
+
+
 

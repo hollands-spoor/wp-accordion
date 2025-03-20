@@ -20,9 +20,9 @@ export default function save({ attributes }) {
     const { heading, backgroundColor, textColor } = attributes;
 
     return (
-        <div { ...useBlockProps.save({ style: { margin: 'var(--wp--custom--accordion--marginTop) var(--wp--custom--accordion--marginRight) var(--wp--custom--accordion--marginBottom) var(--wp--custom--accordion--marginLeft)', backgroundColor } }) }>
+        <div { ...useBlockProps.save({ style: { margin: 'var(--wp--custom--accordion--margin-top) var(--wp--custom--accordion--margin-right) var(--wp--custom--accordion--margin-bottom) var(--wp--custom--accordion--margin-left)', backgroundColor } }) }>
         
-            <div className="pane-header" tabindex="0" style={{ padding: 'var(--wp--custom--accordion--paddingTop) var(--wp--custom--accordion--paddingRight) var(--wp--custom--accordion--paddingBottom) var(--wp--custom--accordion--paddingLeft)', backgroundColor: textColor }}>
+            <div className="pane-header" tabindex="0" style={{ padding: 'var(--wp--custom--accordion--padding-top) var(--wp--custom--accordion--padding-right) var(--wp--custom--accordion--padding-bottom) var(--wp--custom--accordion--padding-left)', backgroundColor: textColor }}>
                 <RichText.Content
                     tagName="h2"
                     value={ heading }
@@ -32,7 +32,7 @@ export default function save({ attributes }) {
                     className="pane-switch"
                 />
             </div>
-            <div className="pane-content" style={{ padding: '0 var(--wp--custom--accordion--paddingRight) 0 var(--wp--custom--accordion--paddingLeft)' }}>
+            <div className="pane-content" style={{ padding: '0 var(--wp--custom--accordion--padding-right) 0 var(--wp--custom--accordion--padding-left)' }}>
                 <InnerBlocks.Content />
             </div>
         </div>
