@@ -1,0 +1,21 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+ :root {
+    --wp--custom--accordion--transitionTime: 0.1s;
+    --wp--custom--accordion--marginTop: 0px;
+    --wp--custom--accordion--marginRight: 0px;
+    --wp--custom--accordion--marginBottom: 0.1em;
+    --wp--custom--accordion--marginLeft: 0px;
+    --wp--custom--accordion--paddingTop: 0.5em;
+    --wp--custom--accordion--paddingRight: 2em;
+    --wp--custom--accordion--paddingBottom: 0.5em;
+    --wp--custom--accordion--paddingLeft: 2em;
+    --wp--custom--accordion--textColor: #ffffff;
+    --wp--custom--accordion--backgroundColor: #666666;
+    --wp--custom--accordion--activeTextColor: #ffffff;
+    --wp--custom--accordion--activeBackgroundColor: #999999;
+}

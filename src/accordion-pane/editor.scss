@@ -1,0 +1,11 @@
+/**
+ * Editor only styles
+ */
+
+.wp-block-hs-blocks-accordion-pane {
+	border: 2px dotted #00a;
+}
+	
+.wp-block-hs-blocks-accordion-pane.active .pane-header .pane-switch {
+	transform: rotate(180deg);
+}

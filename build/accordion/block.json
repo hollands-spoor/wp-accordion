@@ -1,0 +1,64 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "hs-blocks/accordion",
+  "version": "0.1.0",
+  "title": "Accordion",
+  "category": "widgets",
+  "icon": "",
+  "description": "Accordion block, uses Accordion-pane block.",
+  "example": {},
+  "supports": {
+    "html": false,
+    "innerBlocks": true
+  },
+  "textdomain": "accordion",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./view.js",
+  "attributes": {
+    "collapsed": {
+      "type": "boolean",
+      "default": false
+    },
+    "oneAtATime": {
+      "type": "boolean",
+      "default": false
+    },
+    "textColor": {
+      "type": "string",
+      "default": ""
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "activeTextColor": {
+      "type": "string",
+      "default": ""
+    },
+    "activeBackgroundColor": {
+      "type": "string",
+      "default": ""
+    },
+    "margin": {
+      "type": "object",
+      "default": {
+        "top": "0em",
+        "right": "0em",
+        "bottom": "0.1em",
+        "left": "0em"
+      }
+    },
+    "padding": {
+      "type": "object",
+      "default": {
+        "top": "0.5em",
+        "right": "1em",
+        "bottom": "0.5em",
+        "left": "1em"
+      }
+    }
+  }
+}
