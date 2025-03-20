@@ -44,24 +44,34 @@ The default values can also be defined in the theme.json of your (child-) theme:
 
 Add them to the theme.json like so: 
 
-"settings": {
-    "custom": {
-        "accordion": {
-            "transitionTime": "0.1s",
-            "marginTop": "0px",
-            "marginRight": "0px",
-            "marginBottom": "0.1em",
-            "marginLeft": "0px",
-            "paddingTop": "0.5em",
-            "paddingRight": "2em",
-            "paddingBottom": "0.5em",
-            "paddingLeft": "2em",
-            "backgroundColor" : "#666666",
-            "textColor": "#ffffff",
-            "activeBackgroundColor": "#999999",
-            "activeTextColor": "#ffffff"
+{
+	"$schema": "https://schemas.wp.org/wp/6.7/theme.json",
+	"version": 3,
+ 
+    ...
+ 
+    "settings": {
+        "custom": {
+            "accordion": {
+                "transitionTime": "0.1s",
+                "marginTop": "0px",
+                "marginRight": "0px",
+                "marginBottom": "0.1em",
+                "marginLeft": "0px",
+                "paddingTop": "0.5em",
+                "paddingRight": "2em",
+                "paddingBottom": "0.5em",
+                "paddingLeft": "2em",
+                "backgroundColor" : "#666666",
+                "textColor": "#ffffff",
+                "activeBackgroundColor": "#999999",
+                "activeTextColor": "#ffffff"
+            }
         }
     }
+ 
+    ...
+
 }
 
 
@@ -73,9 +83,9 @@ The pane-headers have a tab-index. I the Enter-key is pressed while a pane-heade
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= Can I nest the accordion block into another accrodion? =
 
-An answer to that question.
+Yes.
 
 == Screenshots ==
 
@@ -92,7 +102,7 @@ directory take precedence. For example, `/assets/screenshot-1.png` would win ove
 
 == Roadmap ==
 
-Maybe open a pane when some element in it receives focus. 
+Maybe open a pane when an element it contains it receives focus. 
 
 
 
