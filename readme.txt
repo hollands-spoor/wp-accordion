@@ -21,6 +21,30 @@ Extremely simple accordion plugin. Containing 2 blocks: Accordion and Accordion-
 
 Drag an Accordion block into the post or page and use the 'Add pane' button at the bottom of the block to add pane-blocks.
  
+== styling ==
+At the root some basic styling variables are defined that can be overwritten by your theme or ad hoc by the user in de block-editor. These are:
+
+    --wp--custom--accordion--transitionTime: 0.1s;
+    --wp--custom--accordion--marginTop: 0px;
+    --wp--custom--accordion--marginRight: 0px;
+    --wp--custom--accordion--marginBottom: 0.1em;
+    --wp--custom--accordion--marginLeft: 0px;
+    --wp--custom--accordion--paddingTop: 0.5em;
+    --wp--custom--accordion--paddingRight: 2em;
+    --wp--custom--accordion--paddingBottom: 0.5em;
+    --wp--custom--accordion--paddingLeft: 2em;
+    --wp--custom--accordion--textColor: #ffffff;
+    --wp--custom--accordion--backgroundColor: #666666;
+    --wp--custom--accordion--activeTextColor: #ffffff;
+    --wp--custom--accordion--activeBackgroundColor: #999999;
+
+
+    
+
+== Accessability ==
+The pane-headers have a tab-index. I the enter-key is pressed while a pane-headers has focus, a click-event is triggered.
+
+
 
 == Frequently Asked Questions ==
 
