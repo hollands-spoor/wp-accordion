@@ -79,7 +79,7 @@ Add them to the theme.json like so:
     
 
 == Accessability ==
-The pane-headers have a tab-index. I the Enter-key is pressed while a pane-header has focus, a click-event is triggered on that pane-header thereby activating / opening it.
+The pane-headers have a tab-index. If the Enter-key is pressed while a pane-header has focus, a click-event is triggered on that pane-header thereby activating / opening it.
 
 == Frequently Asked Questions ==
 
