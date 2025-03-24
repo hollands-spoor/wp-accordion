@@ -73,10 +73,7 @@ Add them to the theme.json like so:
     ...
 
 }
-
-
-
-    
+   
 
 == Accessability ==
 The pane-headers have a tab-index. If the Enter-key is pressed while a pane-header has focus, a click-event is triggered on that pane-header thereby activating / opening it.
@@ -86,23 +83,6 @@ The pane-headers have a tab-index. If the Enter-key is pressed while a pane-head
 = Can I nest the accordion block into another accrodion? =
 
 Yes.
-
-== Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
-
-== Changelog ==
-
-= 1.0.0 =
-* Release
-
-== Roadmap ==
-
-Maybe open a pane when an element it contains it receives focus. 
 
 
 
