@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       Accordion
+ * Plugin Name:       Good Accordion
  * Description:       FAQ / Accordion Block.
  * Version:           1.0.0
  * Requires at least: 6.7

@@ -10,7 +10,7 @@ Wordpress accordion block.
 
 == Description ==
 
-Simple accordion plugin providing 2 blocks: Accordion and Accordion-pane. 
+Simple and good accordion plugin providing 2 blocks: Accordion and Accordion-pane. 
 
 == Installation ==
 
@@ -24,7 +24,7 @@ Drag an Accordion block into a post or page or CPT and use the 'Add pane' button
  
 == styling ==
 
-At the root some basic styling variables are defined that can be overwritten by your theme. Most of these can be changed ad hoc by the user in de block-editor. These are:
+At the root some basic styling variables are defined that can be overwritten by your theme. Some of these can be changed ad hoc by the user in de block-editor. These are:
 
     --wp--custom--accordion--transition-time: 0.1s;
     --wp--custom--accordion--margin-top: 0px;
