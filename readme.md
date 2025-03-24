@@ -1,6 +1,6 @@
-=== Accordion ===
+== Good Accordion == 
 Contributors:      Hollands Spoor
-Tags:              block
+Tags:              block, accordion, faq
 Tested up to:      6.7
 Stable tag:        1.0.0
 License:           GPL-2.0-or-later
@@ -14,13 +14,13 @@ Simple accordion plugin providing 2 blocks: Accordion and Accordion-pane.
 
 == Installation ==
 
-Upload the plugin files to the `/wp-content/plugins/accordion` directory, or install the plugin through the WordPress plugins screen directly.
+Upload the plugin files to the `/wp-content/plugins/good-accordion` directory, or install the plugin using the WordPress plugins screen directly.
 
-Activate the plugin through the 'Plugins' screen in WordPress
+Activate the plugin in the 'Plugins' screen in WordPress
 
 == Use ==
 
-Drag an Accordion block into a post or page and use the 'Add pane' button at the bottom of the block to add pane-blocks.
+Drag an Accordion block into a post or page or CPT and use the 'Add pane' button at the bottom of the block to add pane-blocks.
  
 == styling ==
 

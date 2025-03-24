@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	/**
 	 * Scrollheight is not correct during transition. So it can not serve during
-	 * transition of a the max height of a pane.
+	 * transition of the max height of a pane.
 	 *
 	 * Therefore this method is called twice: once before transition with reset = true.
 	 * Then again after transition with reset = false. The parent needs its
@@ -67,19 +67,12 @@ document.addEventListener("DOMContentLoaded", function () {
 		);
 	};
 
-
-
-
 	accordionBlocks.forEach((block) => {
 		const oneAtATime = block.getAttribute("data-one-at-a-time") === "true";
 		const collapsed = block.getAttribute("data-collapsed") === "true";
 		const accordionPanes = block.querySelectorAll(
 			":scope > .wp-block-hs-blocks-accordion-pane",
 		);
-		// const allPanes = block.querySelectorAll('.wp-block-hs-blocks-accordion-pane');
-
-
-
 
 		accordionPanes.forEach((pane, index) => {
 			const header = pane.querySelector(".pane-header");
@@ -88,15 +81,12 @@ document.addEventListener("DOMContentLoaded", function () {
 			if (!collapsed && index === 0) {
 				pane.classList.add("active");
 				content.style.maxHeight = content.scrollHeight + "px";
+				checkForParentPane(block, false);
 			} else {
 				content.style.maxHeight = "0";
 			}
 
-			header.addEventListener("focus", function (event) {
-				console.log("focus", pane);
-			});
 			header.addEventListener("click", function (event) {
-				console.log("click", pane);
 				if (oneAtATime) {
 					// Close other open panes, i.e. remove 'active' class from all sibling panes
 					accordionPanes.forEach((siblingPane) => {
@@ -117,15 +107,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 				/**
                  * If you want to change the url when a pane is opened, you can do it here. 
-                
-                if(pane.classList.contains("active")) {
-                    // get the id of the pane header and change the url to include it
-                    const id = header.id;
-                    window.history.pushState(null, null, `#${id}`);
-                } else {
-
-                    window.history.pushState(null, null, window.location.pathname);
-                }
+                 * if(pane.classList.contains("active")) {
+                 *   const id = header.id;
+                 *   window.history.pushState(null, null, `#${id}`);
+                 * } else {
+                 *   window.history.pushState(null, null, window.location.pathname);
+                 * }
                 */
 
 				// Check if this block is in another pane
@@ -146,7 +133,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			});
 
 			
-			// Add keyup event listener to handle spacebar key
+			// Add key down event listener to handle Enter key
 			header.addEventListener("keydown", function (event) {
 				if (event.code === "Enter" || event.key === "Enter") {
 					if (document.activeElement === header) {
@@ -156,8 +143,6 @@ document.addEventListener("DOMContentLoaded", function () {
 					}
 				}
 			});
-
 		});
-
 	});
 });
