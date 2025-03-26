@@ -7,13 +7,13 @@
     justify-content: space-between;
     align-items: center;
     transition: background-color var(--wp--custom--accordion--transition-time) ease-out;
-    color: var(--wp--custom--accordion--text-color);
-    background-color: var(--wp--custom--accordion--background-color);
+    color: var(--wp--custom--accordion--header--text-color);
+    background-color: var(--wp--custom--accordion--header--background-color);
 }
 
 .wp-block-hs-blocks-accordion-pane.active > .pane-header {
-    color: var(--wp--custom--accordion--active-text-color);
-    background-color: var(--wp--custom--accordion--active-background-color);
+    color: var(--wp--custom--accordion--active--header--text-color);
+    background-color: var(--wp--custom--accordion--active--header--background-color);
 }
 
 .wp-block-hs-blocks-accordion-pane .pane-header h2 {

@@ -3,7 +3,7 @@
  * Add event listeners to the accordion panes.
  * Open first pane when collapsed is false.
  * On opening a pane, close all other panes when oneAtATime is true.
- * On opening and closing a pane, set max-height of the content. This allows for smooth css transitions.
+ * On opening and closing a pane, set max-height of the pane-content. This allows for css transitions.
  */
 
 document.addEventListener("DOMContentLoaded", function () {

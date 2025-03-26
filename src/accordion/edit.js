@@ -1,11 +1,11 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InnerBlocks, InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl, Button, __experimentalBoxControl as BoxControl } from '@wordpress/components';
+import { PanelBody, ToggleControl, Button, SelectControl, __experimentalBoxControl as BoxControl } from '@wordpress/components';
 
 import './editor.scss';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-    const { collapsed, oneAtATime, margin, padding, textColor, backgroundColor, activeTextColor, activeBackgroundColor } = attributes;
+    const { collapsed, oneAtATime, headerTag, margin, padding, headerTextColor, headerBackgroundColor, activeHeaderTextColor, activeHeaderBackgroundColor, bodyTextColor, bodyBackgroundColor } = attributes;
 
     // Generate the inline styles based on block attributes
     const getStyle = () => {
@@ -22,17 +22,23 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
             style['--wp--custom--accordion--margin-bottom'] = margin.bottom;
             style['--wp--custom--accordion--margin-left'] = margin.left;
         }
-        if ( textColor ) {
-            style['--wp--custom--accordion--text-color'] = textColor;
+        if ( headerTextColor ) {
+            style['--wp--custom--accordion--header--text-color'] = headerTextColor;
         }
-        if ( backgroundColor ) {
-            style['--wp--custom--accordion--background-color'] = backgroundColor;
+        if ( headerBackgroundColor ) {
+            style['--wp--custom--accordion--header--background-color'] = headerBackgroundColor;
         }
-        if ( activeTextColor ) {
-            style['--wp--custom--accordion--active-text-color'] = activeTextColor;
+        if ( activeHeaderTextColor ) {
+            style['--wp--custom--accordion--active--header--text-color'] = activeHeaderTextColor;
+        }   
+        if ( activeHeaderBackgroundColor ) {
+            style['--wp--custom--accordion--active--header--background-color'] = activeHeaderBackgroundColor;
         }
-        if ( activeBackgroundColor ) {
-            style['--wp--custom--accordion--active-background-color'] = activeBackgroundColor;
+        if ( bodyTextColor ) {
+            style['--wp--custom--accordion--body--text-color'] = bodyTextColor;
+        }
+        if ( bodyBackgroundColor ) {
+            style['--wp--custom--accordion--body--background-color'] = bodyBackgroundColor;
         }
         return style;
     };
@@ -71,6 +77,22 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
                         checked={ oneAtATime }
                         onChange={ ( value ) => setAttributes( { oneAtATime: value } ) }
                     />
+                    <SelectControl
+                        label={ __( 'Header Tag', 'accordion' ) }
+                        value={ headerTag }
+                        options={ [
+                            { label: 'h1', value: 'h1' },
+                            { label: 'h2', value: 'h2' },
+                            { label: 'h3', value: 'h3' },
+                            { label: 'h4', value: 'h4' },
+                            { label: 'h5', value: 'h5' },
+                            { label: 'h6', value: 'h6' },
+                            { label: 'p', value: 'p' },
+                            { label: 'div', value: 'div' },
+                        ] }
+                        onChange={ ( value ) => setAttributes( { headerTag: value } ) }
+                    />
+
                 </PanelBody>
             </InspectorControls>
             <InspectorControls group="styles">
@@ -80,25 +102,36 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
                         initialOpen={ true }
                         colorSettings={ [
                             {
-                                value: backgroundColor,
-                                onChange: ( color ) => setAttributes( { backgroundColor: color } ),
-                                label: __( 'Background Color', 'accordion' ),
+                                value: headerTextColor,
+                                onChange: ( color ) => setAttributes( { headerTextColor: color } ),
+                                label: __( 'Header Text Color', 'accordion' ),
                             },
                             {
-                                value: textColor,
-                                onChange: ( color ) => setAttributes( { textColor: color } ),
-                                label: __( 'Text Color', 'accordion' ),
+                                value: headerBackgroundColor,
+                                onChange: ( color ) => setAttributes( { headerBackgroundColor: color } ),
+                                label: __( 'Header Background Color', 'accordion' ),
                             },
                             {
-                                value: activeBackgroundColor,
-                                onChange: ( color ) => setAttributes( { activeBackgroundColor: color } ),
-                                label: __( 'Active Background Color', 'accordion' ),
+                                value: activeHeaderTextColor,
+                                onChange: ( color ) => setAttributes( { activeHeaderTextColor: color } ),
+                                label: __( 'Active Header Text Color', 'accordion' ),
                             },
                             {
-                                value: activeTextColor,
-                                onChange: ( color ) => setAttributes( { activeTextColor: color } ),
-                                label: __( 'Active Text Color', 'accordion' ),
-                            }
+                                value: activeHeaderBackgroundColor,
+                                onChange: ( color ) => setAttributes( { activeHeaderBackgroundColor: color } ),
+                                label: __( 'Active Header Background Color', 'accordion' ),
+                            },
+                            {
+                                value: bodyTextColor,
+                                onChange: ( color ) => setAttributes( { bodyTextColor: color } ),
+                                label: __( 'Body Text Color', 'accordion' ),
+                            },
+                            {
+                                value: bodyBackgroundColor,
+                                onChange: ( color ) => setAttributes( { bodyBackgroundColorackgroundColor: color } ),
+                                label: __( 'Body Background Color', 'accordion' ),
+                            },
+
                         ] }
                     />
                     <BoxControl

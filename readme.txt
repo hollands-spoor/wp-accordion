@@ -1,8 +1,8 @@
 == Good Accordion == 
 Contributors:      Hollands Spoor
 Tags:              block, accordion, faq
-Tested up to:      6.7
-Stable tag:        1.0.0
+Tested up to:      6.8
+Stable tag:        1.1.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,10 +35,12 @@ At the root some basic styling variables are defined that can be overwritten by 
     --wp--custom--accordion--padding-right: 2em;
     --wp--custom--accordion--padding-bottom: 0.5em;
     --wp--custom--accordion--padding-left: 2em;
-    --wp--custom--accordion--text-color: #ffffff;
-    --wp--custom--accordion--background-color: #666666;
-    --wp--custom--accordion--active-text-color: #ffffff;
-    --wp--custom--accordion--active-background-color: #999999;
+    --wp--custom--accordion--header--text-color: #ffffff;
+    --wp--custom--accordion--header--background-color: #666666;
+    --wp--custom--accordion--header--active-text-color: #ffffff;
+    --wp--custom--accordion--header--active-background-color: #999999;
+    --wp--custom--accordion--body--text-color: #ffffff;
+    --wp--custom--accordion--body--background-color: #666666;
 
 The default values can also be defined in the theme.json of your (child-) theme:
 
@@ -62,10 +64,12 @@ Add them to the theme.json like so:
                 "paddingRight": "2em",
                 "paddingBottom": "0.5em",
                 "paddingLeft": "2em",
-                "backgroundColor" : "#666666",
-                "textColor": "#ffffff",
-                "activeBackgroundColor": "#999999",
-                "activeTextColor": "#ffffff"
+                "headerBackgroundColor" : "#666666",
+                "headerTextColor": "#ffffff",
+                "activeHeaderBackgroundColor": "#999999",
+                "activeHeaderTextColor": "#ffffff"
+                "bodyBackgroundColor" : "#ffffff",
+                "bodyTextColor": "#000000",
             }
         }
     }
@@ -84,5 +88,11 @@ The pane-headers have a tab-index. If the Enter-key is pressed while a pane-head
 
 Yes.
 
+
+== Changelog ==
+
+= 1.1.0 =
+Added Selectbox to change headertag in pane header
+Added color and backgroundcolor for pane-content
 
 

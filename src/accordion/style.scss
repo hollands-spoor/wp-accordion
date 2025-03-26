@@ -12,8 +12,10 @@
     --wp--custom--accordion--padding-right: 2em;
     --wp--custom--accordion--padding-bottom: 0.5em;
     --wp--custom--accordion--padding-left: 2em;
-    --wp--custom--accordion--text-color: #ffffff;
-    --wp--custom--accordion--background-color: #666666;
-    --wp--custom--accordion--active-text-color: #ffffff;
-    --wp--custom--accordion--active-background-color: #999999;
+    --wp--custom--accordion--header--text-color: #ffffff;
+    --wp--custom--accordion--header--background-color: #666666;
+    --wp--custom--accordion--active--header--text-color: #ffffff;
+    --wp--custom--accordion--active--header--background-color: #999999;
+    --wp--custom--accordion--body--text-color: #000000;
+    --wp--custom--accordion--body--background-color: #ffffff;
 }

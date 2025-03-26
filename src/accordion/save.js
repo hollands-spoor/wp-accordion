@@ -1,7 +1,7 @@
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
-    const { collapsed, oneAtATime, textColor, backgroundColor, activeTextColor, activeBackgroundColor, margin, padding } = attributes;
+    const { collapsed, oneAtATime, headerTag, headerTextColor, headerBackgroundColor, activeHeaderTextColor, activeHeaderBackgroundColor, bodyTextColor, bodyBackgroundColor,margin, padding } = attributes;
 
     // Function to generate inline styles based on block attributes
     const getStyle = () => {
@@ -18,27 +18,35 @@ export default function save( { attributes } ) {
             style['--wp--custom--accordion--margin-bottom'] = margin.bottom;
             style['--wp--custom--accordion--margin-left'] = margin.left;
         }
-        if ( textColor ) {
-            style['--wp--custom--accordion--text-color'] = textColor;
+        if ( headerTextColor ) {
+            style['--wp--custom--accordion--header--text-color'] = headerTextColor;
         }
-        if ( backgroundColor ) {
-            style['--wp--custom--accordion--background-color'] = backgroundColor;
+        if ( headerBackgroundColor ) {
+            style['--wp--custom--accordion--header--background-color'] = headerBackgroundColor;
         }
-        if ( activeTextColor ) {
-            style['--wp--custom--accordion--active-text-color'] = activeTextColor;
+        if ( activeHeaderTextColor ) {
+            style['--wp--custom--accordion--active--header--text-color'] = activeHeaderTextColor;
         }
-        if ( activeBackgroundColor ) {
-            style['--wp--custom--accordion--active-background-color'] = activeBackgroundColor;
+        if ( activeHeaderBackgroundColor ) {
+            style['--wp--custom--accordion--active--header--background-color'] = activeHeaderBackgroundColor;
         }
+        if ( bodyTextColor ) {
+            style['--wp--custom--accordion--body--text-color'] = bodyTextColor;
+        }
+        if ( bodyBackgroundColor ) {
+            style['--wp--custom--accordion--body--background-color'] = bodyBackgroundColor;
+        }
+
 
         return style;
     };
 
     // Generate block properties including inline styles
     const blockProps = useBlockProps.save( {
+        style: getStyle(),
         'data-one-at-a-time': oneAtATime,
         'data-collapsed': collapsed,
-        style: getStyle(),
+        'data-header-tag': headerTag,
         'aria-expanded': collapsed ? 'false' : 'true',
         'aria-controls': 'pane-content-id',
     } );

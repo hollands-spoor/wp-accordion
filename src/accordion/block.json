@@ -26,22 +26,35 @@
 			"type": "boolean",
 			"default": false
 		},
-		"textColor": {
+		"headerTag": {
+			"type": "string",
+			"default": "h3"
+		},
+		"headerTextColor": {
 			"type": "string",
 			"default": ""
 		},
-		"backgroundColor": {
+		"headerBackgroundColor": {
 			"type": "string",
 			"default": ""
 		},
-		"activeTextColor": {
+		"activeHeaderTextColor": {
 			"type": "string",
 			"default": ""
 		},
-		"activeBackgroundColor": {
+		"activeHeaderBackgroundColor": {
 			"type": "string",
 			"default": ""
 		},
+		"bodyTextColor": {
+			"type": "string",
+			"default": ""
+		},
+		"bodyBackgroundColor": {
+			"type": "string",
+			"default": ""
+		},
+		
 		"margin": {
             "type": "object",
             "default": {
