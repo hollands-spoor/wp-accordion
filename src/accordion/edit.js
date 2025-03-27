@@ -128,7 +128,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
                             },
                             {
                                 value: bodyBackgroundColor,
-                                onChange: ( color ) => setAttributes( { bodyBackgroundColorackgroundColor: color } ),
+                                onChange: ( color ) => setAttributes( { bodyBackgroundColor: color } ),
                                 label: __( 'Body Background Color', 'accordion' ),
                             },
 

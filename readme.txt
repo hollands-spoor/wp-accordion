@@ -64,12 +64,12 @@ Add them to the theme.json like so:
                 "paddingRight": "2em",
                 "paddingBottom": "0.5em",
                 "paddingLeft": "2em",
-                "headerBackgroundColor" : "#666666",
                 "headerTextColor": "#ffffff",
-                "activeHeaderBackgroundColor": "#999999",
+                "headerBackgroundColor" : "#666666",
                 "activeHeaderTextColor": "#ffffff"
-                "bodyBackgroundColor" : "#ffffff",
+                "activeHeaderBackgroundColor": "#999999",
                 "bodyTextColor": "#000000",
+                "bodyBackgroundColor" : "#ffffff",
             }
         }
     }
