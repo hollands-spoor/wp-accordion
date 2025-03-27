@@ -22,12 +22,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  */
 function hs_blocks_php_accordion_blocks_init() {
-	register_block_type( __DIR__ . '/build/accordion-pane' );
 	register_block_type( __DIR__ . '/build/accordion' );
-
-
+	register_block_type( 
+		__DIR__ . '/build/accordion-pane',
+		array( 'parent' => 'hs-blocks/accordion' 
+		) 
+	);
 	wp_set_script_translations( 'hs-blocks-accordion-editor-script', 'accordion', plugin_dir_path( __FILE__ ) . 'languages' );
-	
-
 }
+
 add_action( 'init', 'hs_blocks_php_accordion_blocks_init' );
