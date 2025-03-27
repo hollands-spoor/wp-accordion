@@ -196,7 +196,7 @@ function Edit({
           }, {
             value: bodyBackgroundColor,
             onChange: color => setAttributes({
-              bodyBackgroundColorackgroundColor: color
+              bodyBackgroundColor: color
             }),
             label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Body Background Color', 'accordion')
           }]
