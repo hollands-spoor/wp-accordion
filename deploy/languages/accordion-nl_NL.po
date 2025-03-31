@@ -1,0 +1,73 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-21T10:32:29+01:00\n"
+"PO-Revision-Date: 2025-03-21 12:40+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Domain: accordion\n"
+
+#: edit.js:63
+msgid "Settings"
+msgstr "Instellingen"
+
+#: edit.js:65
+msgid "Collapsed"
+msgstr "Ingeklapt"
+
+#: edit.js:70
+msgid "One at a time"
+msgstr "Eén tegelijk"
+
+#: edit.js:77
+msgid "Appearance"
+msgstr "Uiterlijk"
+
+#: edit.js:79
+msgid "Color Settings"
+msgstr "Kleuren"
+
+#: edit.js:85
+msgid "Background Color"
+msgstr "Achtergrondkleur"
+
+#: edit.js:90
+msgid "Text Color"
+msgstr "Tekstkleur"
+
+#: edit.js:95
+msgid "Active Background Color"
+msgstr "Achtergrondkleur actief"
+
+#: edit.js:100
+msgid "Active Text Color"
+msgstr "Tekstkleur actief"
+
+#: edit.js:105
+msgid "Margin"
+msgstr "Marge"
+
+#: edit.js:110
+msgid "Padding"
+msgstr "Kantlijn"
+
+#: edit.js:119
+msgid "Add Pane"
+msgstr "Voeg paneel toe"
+
+#: block.json
+msgctxt "block title"
+msgid "Accordion"
+msgstr "Accordeon"
+
+#: block.json
+msgctxt "block description"
+msgid "Accordion block, uses Accordion-pane block."
+msgstr "Accordeon blok, gebruikt Accordeon paneelblok."

@@ -10,6 +10,7 @@
 	"example": {},
 	"supports": {
 		"html": false,
+		"align": ["wide", "full"],
 		"innerBlocks": true
 	},
 	"textdomain": "accordion",
@@ -18,6 +19,10 @@
 	"style": "file:./style-index.css",
 	"viewScript": "file:./view.js",
 	"attributes": {
+		"align": {
+			"type": "string",
+			"default": "wide"
+		},
 		"collapsed": {
 			"type": "boolean",
 			"default": false

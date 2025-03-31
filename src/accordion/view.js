@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		if (parentPane) {
 			const content = parentPane.querySelector(".pane-content");
 			if (unset) {
-				//content.style.maxHeight = "unset";
 				content.style.removeProperty('max-height');
 			} else {
 				content.style.maxHeight = content.scrollHeight + "px";
@@ -51,21 +50,30 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 	};
 
-	/**
-	 * Check if an element is in the viewport
-	 * @param {Element} element - The element to check
-	 * @return {boolean} - True if the element is in the viewport, false otherwise
-	 */
-	const isInViewport = (element) => {
-		const rect = element.getBoundingClientRect();
-		return (
-			rect.top >= 0 &&
-			rect.left >= 0 &&
-			rect.bottom <=
-				(window.innerHeight || document.documentElement.clientHeight) &&
-			rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-		);
-	};
+
+	const getOffset = (el) => {
+		const rect = el.getBoundingClientRect();
+		return {
+		  left: rect.left + window.scrollX,
+		  top: rect.top + window.scrollY
+		};
+	}
+
+	const getHeight = (el) => {
+
+		const styles = window.getComputedStyle(el);
+		const margin = parseFloat(styles['marginTop']) +
+					 parseFloat(styles['marginBottom']);
+	  
+		const height = Math.ceil(el.offsetHeight + margin);
+
+		return {
+		  height: height
+		};
+
+	}
+
+
 
 	accordionBlocks.forEach((block) => {
 		const oneAtATime = block.getAttribute("data-one-at-a-time") === "true";
@@ -97,12 +105,26 @@ document.addEventListener("DOMContentLoaded", function () {
 					});
 				}
 
+
 				// Toggle 'active' class on the clicked pane
 				pane.classList.toggle("active");
 				if (pane.classList.contains("active")) {
 					content.style.maxHeight = content.scrollHeight + "px";
+					pane.classList.add('opening');
+					//scroll to position of the top of the accordion block + index * height of the pane_header
+					// but only if the pane is not in viewport on its new position
+					if( oneAtATime ) {
+						const paneHeaderHeight = getHeight( header).height; // FIXME : this does not account for margin. 
+						const newScrollPosition =  getOffset(block).top + ( index * paneHeaderHeight );
+						const currentScroll = document.documentElement.scrollTop; // Check browsersupport for this
+						if( newScrollPosition < currentScroll){
+							window.scrollTo({ top: newScrollPosition , behavior: "smooth" });
+						}
+					}
 				} else {
 					content.style.maxHeight = "0";
+					pane.classList.add('closing');
+
 				}
 
 				/**
@@ -122,11 +144,9 @@ document.addEventListener("DOMContentLoaded", function () {
 					function onTransitionEnd(event) {
 						if (event.propertyName === "max-height") {
 							content.removeEventListener("transitionend", onTransitionEnd);
+							pane.classList.remove('opening');
+							pane.classList.remove('closing');
 							checkForParentPane(block, false);
-						}
-						// TODO: if currently open pane is not in view, scroll it into view
-						if (!isInViewport(header)) {
-							header.scrollIntoView({ behavior: "smooth", block: "start" });
 						}
 					},
 				);

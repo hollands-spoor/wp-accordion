@@ -12,9 +12,10 @@
 		"lint:js": "wp-scripts lint-js",
 		"packages-update": "wp-scripts packages-update",
 		"plugin-zip": "wp-scripts plugin-zip",
-		"start": "wp-scripts start"
-
+		"start": "wp-scripts start",
+		"deploy": "npm run build && deploy.bat"
 	},
+
 	"devDependencies": {
 		"@wordpress/scripts": "^30.11.0",
 		"classnames": "^2.5.1"
