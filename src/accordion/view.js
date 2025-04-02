@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	};
 
 
-	const getOffset = (el) => {
+	const getElementOffset = (el) => {
 		const rect = el.getBoundingClientRect();
 		return {
 		  left: rect.left + window.scrollX,
@@ -59,18 +59,11 @@ document.addEventListener("DOMContentLoaded", function () {
 		};
 	}
 
-	const getHeight = (el) => {
-
+	const getElementHeight = (el) => {
 		const styles = window.getComputedStyle(el);
 		const margin = parseFloat(styles['marginTop']) +
 					 parseFloat(styles['marginBottom']);
-	  
-		const height = Math.ceil(el.offsetHeight + margin);
-
-		return {
-		  height: height
-		};
-
+		return Math.ceil(el.offsetHeight + margin);
 	}
 
 
@@ -105,30 +98,32 @@ document.addEventListener("DOMContentLoaded", function () {
 					});
 				}
 
-
-				// Toggle 'active' class on the clicked pane
 				pane.classList.toggle("active");
 				if (pane.classList.contains("active")) {
 					content.style.maxHeight = content.scrollHeight + "px";
 					pane.classList.add('opening');
-					//scroll to position of the top of the accordion block + index * height of the pane_header
-					// but only if the pane is not in viewport on its new position
+					// Pane can be clicked during animation
+					pane.classList.remove('closing');
+					//scroll to position of the currently opened pane-header. Maybe some previous pane is in the process of closing, so the position is calculate in advance by taking the top of the current accordion block and then add ( index * height of the paneheader ).
 					if( oneAtATime ) {
-						const paneHeaderHeight = getHeight( header).height; // FIXME : this does not account for margin. 
-						const newScrollPosition =  getOffset(block).top + ( index * paneHeaderHeight );
-						const currentScroll = document.documentElement.scrollTop; // Check browsersupport for this
-						if( newScrollPosition < currentScroll){
-							window.scrollTo({ top: newScrollPosition , behavior: "smooth" });
+						const paneHeaderHeight = getElementHeight( header);
+						const newScrollPosition =  getElementOffset(block).top + ( index * paneHeaderHeight );
+						const currentScrollPosition = document.documentElement.scrollTop; // Check browsersupport for this
+						if( newScrollPosition < currentScrollPosition){
+							window.scrollTo({ top: newScrollPosition, behavior: "smooth" });
 						}
 					}
 				} else {
 					content.style.maxHeight = "0";
+					// Pane can be clicked during animation
+					pane.classList.remove('opening');
 					pane.classList.add('closing');
 
 				}
 
 				/**
-                 * If you want to change the url when a pane is opened, you can do it here. 
+                 * If url must be changed when a pane is opened, it can be done here. 
+				 * However, it assumes header has an id.
                  * if(pane.classList.contains("active")) {
                  *   const id = header.id;
                  *   window.history.pushState(null, null, `#${id}`);
@@ -137,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
                  * }
                 */
 
-				// Check if this block is in another pane
+				// Check if current accordion block is in the pane of another accordion.
 				checkForParentPane(block, true);
 				content.addEventListener(
 					"transitionend",

@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Good Accordion
  * Description:       FAQ / Accordion Block.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            Hollands Spoor
