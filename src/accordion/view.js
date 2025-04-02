@@ -37,6 +37,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	const checkForParentPane = (element, unset) => {
 		const parentPane = element.closest(".wp-block-hs-blocks-accordion-pane");
 		if (parentPane) {
+			// If parent pane is closed, which is possible if keyboard is used to set focus to a hidden element, then it should be opened.
+			if (! parentPane.classList.contains("active")) {
+				const parentHeader = parentPane.querySelector(".pane-header");
+				parentHeader.click();
+			}
 			const content = parentPane.querySelector(".pane-content");
 			if (unset) {
 				content.style.removeProperty('max-height');
@@ -51,6 +56,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	};
 
 
+	/**
+	 * Get the offset of the element.
+	 * @param {*} el 
+	 * @returns {Object} - The offset of the element
+	 */
 	const getElementOffset = (el) => {
 		const rect = el.getBoundingClientRect();
 		return {
@@ -59,6 +69,12 @@ document.addEventListener("DOMContentLoaded", function () {
 		};
 	}
 
+	/**
+	 * Get the height of the element including margins.	
+	 * @param {*} el 
+	 * @returns height of the element
+	 */
+
 	const getElementHeight = (el) => {
 		const styles = window.getComputedStyle(el);
 		const margin = parseFloat(styles['marginTop']) +
@@ -66,8 +82,9 @@ document.addEventListener("DOMContentLoaded", function () {
 		return Math.ceil(el.offsetHeight + margin);
 	}
 
-
-
+	/**
+	 * Check all the accordions in the page...
+	 */
 	accordionBlocks.forEach((block) => {
 		const oneAtATime = block.getAttribute("data-one-at-a-time") === "true";
 		const collapsed = block.getAttribute("data-collapsed") === "true";
@@ -75,6 +92,13 @@ document.addEventListener("DOMContentLoaded", function () {
 			":scope > .wp-block-hs-blocks-accordion-pane",
 		);
 
+		/**
+		 * ...and add a click handler to the header of each pane.
+		 * Also open the first pane if collapsed is false.
+		 * Open all panes would make the use of an accordion useless.
+		 * Ensure accessibility by adding keydown event listener for Enter key.
+		 * 
+		 */
 		accordionPanes.forEach((pane, index) => {
 			const header = pane.querySelector(".pane-header");
 			const content = pane.querySelector(".pane-content");
@@ -104,11 +128,14 @@ document.addEventListener("DOMContentLoaded", function () {
 					pane.classList.add('opening');
 					// Pane can be clicked during animation
 					pane.classList.remove('closing');
-					//scroll to position of the currently opened pane-header. Maybe some previous pane is in the process of closing, so the position is calculate in advance by taking the top of the current accordion block and then add ( index * height of the paneheader ).
+					//scroll to position of the currently opened pane-header. Maybe some previous pane is in the process of closing, so the position is calculated in advance by taking the top of the current accordion block and then add ( index * height of the paneheader ).
 					if( oneAtATime ) {
 						const paneHeaderHeight = getElementHeight( header);
 						const newScrollPosition =  getElementOffset(block).top + ( index * paneHeaderHeight );
 						const currentScrollPosition = document.documentElement.scrollTop; // Check browsersupport for this
+
+						// FIXME: This is not working in Firefox. <-- Check this!
+						// FIXME: When using mouse, new position can only be smaller, but when using keyboard in nested accordion, it can be larger so check if newly opened pane is below the screen bottom.
 						if( newScrollPosition < currentScrollPosition){
 							window.scrollTo({ top: newScrollPosition, behavior: "smooth" });
 						}
@@ -149,6 +176,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
 			
 			// Add key down event listener to handle Enter key
+			// In a nested accordion, pane-headers in a closed parent pane can receive focus.
+			// FIXED: In that case the parent pane should be opened first. It should be done recursively so maybe the checkForParentPane function can be used to this end.
+			// 
 			header.addEventListener("keydown", function (event) {
 				if (event.code === "Enter" || event.key === "Enter") {
 					if (document.activeElement === header) {
