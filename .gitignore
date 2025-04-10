@@ -14,6 +14,10 @@ build/Release
 # Dependency directories
 node_modules/
 
+# For Internal deployment testing
+deploy/
+deploy.bat
+
 # Optional npm cache directory
 .npm
 
