@@ -38,7 +38,7 @@ export default function Edit({ attributes, setAttributes, clientId }) {
                 const parentBlock = getBlock(parentId);
                 return parentBlock?.attributes?.headerTag || 'h2'; // Default to 'h2' if not set
             }
-            return 'h2'; // Default to 'h2' if no parent block
+            return 'h3'; // Default to 'h3' if no parent block
         },
         [clientId]
     );

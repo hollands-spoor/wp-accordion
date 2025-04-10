@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       Good Accordion
  * Description:       FAQ / Accordion Block.
- * Version:           1.0.1
+ * Version:           1.0.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            Hollands Spoor
@@ -32,3 +32,20 @@ function hs_blocks_php_accordion_blocks_init() {
 }
 
 add_action( 'init', 'hs_blocks_php_accordion_blocks_init' );
+
+
+
+function hs_blocks_enqueue_custom_scripts() {
+    // Deregister the automatically enqueued view script
+    wp_deregister_script( 'hs-blocks-accordion-view-script' );
+
+    // Enqueue the script manually with jQuery as a dependency
+    wp_enqueue_script(
+        'hs-blocks-accordion-view-script',
+        plugins_url( 'src/accordion/view.js', __FILE__ ),
+        array( 'jquery' ), // Add jQuery as a dependency
+        '1.0.0',
+        true // Load in the footer
+    );
+}
+add_action( 'wp_enqueue_scripts', 'hs_blocks_enqueue_custom_scripts', 20 );

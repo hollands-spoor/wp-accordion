@@ -17,7 +17,7 @@ import { Dashicon } from '@wordpress/components';
 // add id={ generateAnchor(heading) } to div.pane-header tag
 
 export default function save({ attributes }) {
-    const { heading, headerBackgroundColor, headerTextColor, headerTag = 'h2' } = attributes;
+    const { heading, headerBackgroundColor, headerTextColor, headerTag } = attributes;
 
     return (
         <div { ...useBlockProps.save({ style: { margin: 'var(--wp--custom--accordion--margin-top) var(--wp--custom--accordion--margin-right) var(--wp--custom--accordion--margin-bottom) var(--wp--custom--accordion--margin-left)'} }) }>

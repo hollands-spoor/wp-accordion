@@ -6,6 +6,8 @@
  * On opening and closing a pane, set max-height of the pane-content. This allows for css transitions.
  */
 
+
+
 document.addEventListener("DOMContentLoaded", function () {
 	const accordionBlocks = document.querySelectorAll(
 		".wp-block-hs-blocks-accordion",
@@ -95,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		/**
 		 * ...and add a click handler to the header of each pane.
 		 * Also open the first pane if collapsed is false.
-		 * Open all panes would make the use of an accordion useless.
+		 * Opening all panes would make the use of an accordion useless.
 		 * Ensure accessibility by adding keydown event listener for Enter key.
 		 * 
 		 */
@@ -136,8 +138,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
 						// FIXME: This is not working in Firefox. <-- Check this!
 						// FIXME: When using mouse, new position can only be smaller, but when using keyboard in nested accordion, it can be larger so check if newly opened pane is below the screen bottom.
+
+
+						/** 
+						 * This would be the jquery variant . Time and easing should be in accordance of the css transition of a closing pane
+						 */
+
+						//if (newScrollPosition < currentScrollPosition) {
+						//	$("html, body").animate({ scrollTop: newScrollPosition }, 600, "swing");
+						//}
+
+
 						if( newScrollPosition < currentScrollPosition){
+
+
 							window.scrollTo({ top: newScrollPosition, behavior: "smooth" });
+
+
+
+
 						}
 					}
 				} else {

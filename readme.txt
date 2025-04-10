@@ -1,16 +1,30 @@
-== Good Accordion == 
-Contributors:      Hollands Spoor
-Tags:              block, accordion, faq
+=== Good Accordion === 
+Contributors:      duijvelshoff
+Tags:              accordion, faq
+Donate link:       https://hollands-spoor.com/donate/
+Requires at least: 6.7
 Tested up to:      6.8
-Stable tag:        1.1.0
+Stable tag:        1.0.0
+Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Wordpress accordion block.
+Wordpress accordion block. Simple, small and good.
 
 == Description ==
 
-Simple and good accordion plugin providing 2 blocks: Accordion and Accordion-pane. 
+Simple and good accordion plugin providing 2 blocks: Accordion and Accordion-pane. Drag an Accordion block into your post, page or custom post type and hit the 'Add pane' button for as often as you need.
+
+Features:
+
+* Setting for 'One at a time'. Only one pane within an accordion can be opened. Uncheck this to allow for all panes to be opened simultaneously.
+* Use 'Tab' key to focus panes and hit 'Enter' to open
+* Panes scroll into view when a previous pane gets closed
+* Adjust colors, margins and padding in the block editor
+* Add styling via css, css-vars or theme.json
+
+
+
 
 == Installation ==
 
@@ -25,7 +39,7 @@ Drag an Accordion block into a post or page or CPT and use the 'Add pane' button
 == styling ==
 
 At the root some basic styling variables are defined that can be overwritten by your theme. Some of these can be changed ad hoc by the user in de block-editor. These are:
-
+`
     --wp--custom--accordion--transition-time: 0.1s;
     --wp--custom--accordion--margin-top: 0px;
     --wp--custom--accordion--margin-right: 0px;
@@ -41,17 +55,14 @@ At the root some basic styling variables are defined that can be overwritten by 
     --wp--custom--accordion--header--active-background-color: #999999;
     --wp--custom--accordion--body--text-color: #ffffff;
     --wp--custom--accordion--body--background-color: #666666;
-
+`
 The default values can also be defined in the theme.json of your (child-) theme:
 
 Add them to the theme.json like so: 
 
-{
+`{
 	"$schema": "https://schemas.wp.org/wp/6.7/theme.json",
 	"version": 3,
- 
-    ...
- 
     "settings": {
         "custom": {
             "accordion": {
@@ -74,9 +85,8 @@ Add them to the theme.json like so:
         }
     }
  
-    ...
-
-}
+ 
+}`
    
 
 == Accessability ==
@@ -84,15 +94,14 @@ The pane-headers have a tab-index. If the Enter-key is pressed while a pane-head
 
 == Frequently Asked Questions ==
 
-= Can I nest the accordion block into another accrodion? =
+= Can I nest the accordion block into another accordion? =
 
-Yes.
+Yes. Just pull another good-accordion block into an open pane.
+
+== Screenshots ==
+
+1. Good Accordion
 
 
-== Changelog ==
-
-= 1.1.0 =
-Added Selectbox to change headertag in pane header
-Added color and backgroundcolor for pane-content
 
 

@@ -1,1 +1,55 @@
-.wp-block-hs-blocks-accordion-pane>.pane-header{align-items:center;background-color:var(--wp--custom--accordion--header--background-color);color:var(--wp--custom--accordion--header--text-color);display:flex;justify-content:space-between;transition:background-color var(--wp--custom--accordion--transition-time) ease-out}.wp-block-hs-blocks-accordion-pane.active>.pane-header{background-color:var(--wp--custom--accordion--active--header--background-color);color:var(--wp--custom--accordion--active--header--text-color)}.wp-block-hs-blocks-accordion-pane .pane-header h2{font-size:1.5em;margin:0}.wp-block-hs-blocks-accordion-pane .pane-content{max-height:0;overflow:hidden;transition:max-height var(--wp--custom--accordion--transition-time) ease-out}.wp-block-hs-blocks-accordion-pane.active>.pane-content{max-height:unset}.wp-block-hs-blocks-accordion-pane .pane-header .pane-switch{cursor:pointer;transition:transform var(--wp--custom--accordion--transition-time) ease-out}.wp-block-hs-blocks-accordion-pane.active>.pane-header>.pane-switch{transform:rotate(-180deg);transition:transform var(--wp--custom--accordion--transition-time) ease-out}.wp-block-hs-blocks-accordion-pane .pane-header:focus{outline:none}.wp-block-hs-blocks-accordion-pane .pane-header:focus-visible{outline-color:#800;outline-style:solid;outline-width:2px}
+/*!******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/accordion-pane/style.scss ***!
+  \******************************************************************************************************************************************************************************************************************************************************/
+/**
+ * Styles for front-end and editor
+ */
+.wp-block-hs-blocks-accordion-pane > .pane-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color var(--wp--custom--accordion--transition-time) ease-out;
+  color: var(--wp--custom--accordion--header--text-color);
+  background-color: var(--wp--custom--accordion--header--background-color);
+}
+
+.wp-block-hs-blocks-accordion-pane.active > .pane-header {
+  color: var(--wp--custom--accordion--active--header--text-color);
+  background-color: var(--wp--custom--accordion--active--header--background-color);
+}
+
+.wp-block-hs-blocks-accordion-pane .pane-header h2 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.wp-block-hs-blocks-accordion-pane .pane-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--wp--custom--accordion--transition-time) ease-out;
+}
+
+.wp-block-hs-blocks-accordion-pane.active > .pane-content {
+  max-height: unset;
+}
+
+.wp-block-hs-blocks-accordion-pane .pane-header .pane-switch {
+  cursor: pointer;
+  transition: transform var(--wp--custom--accordion--transition-time) ease-out;
+}
+
+.wp-block-hs-blocks-accordion-pane.active > .pane-header > .pane-switch {
+  transform: rotate(-180deg);
+  transition: transform var(--wp--custom--accordion--transition-time) ease-out; /* Ensure transition applies on active state */
+}
+
+/* See 9.4 / 9.5 of https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo */
+.wp-block-hs-blocks-accordion-pane .pane-header:focus {
+  outline: none;
+}
+
+.wp-block-hs-blocks-accordion-pane .pane-header:focus-visible {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-color: #000000;
+}
