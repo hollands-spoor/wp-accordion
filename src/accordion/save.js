@@ -1,7 +1,7 @@
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
-    const { collapsed, oneAtATime, headerTag, headerTextColor, headerBackgroundColor, activeHeaderTextColor, activeHeaderBackgroundColor, bodyTextColor, bodyBackgroundColor,margin, padding } = attributes;
+    const { collapsed, oneAtATime, headerTag, iconPosition, iconType, headerTextColor, headerBackgroundColor, activeHeaderTextColor, activeHeaderBackgroundColor, bodyTextColor, bodyBackgroundColor,margin, padding } = attributes;
 
     // Function to generate inline styles based on block attributes
     const getStyle = () => {
@@ -42,11 +42,11 @@ export default function save( { attributes } ) {
     };
 
     // Generate block properties including inline styles
+    // Add attributes that are needed by view script as data attributes
     const blockProps = useBlockProps.save( {
         style: getStyle(),
         'data-one-at-a-time': oneAtATime,
         'data-collapsed': collapsed,
-        'data-header-tag': headerTag,
         'aria-expanded': collapsed ? 'false' : 'true',
         'aria-controls': 'pane-content-id',
     } );

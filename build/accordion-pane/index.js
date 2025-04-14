@@ -8,7 +8,7 @@
   \***************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"hs-blocks/accordion-pane","version":"1.0.0","title":"Accordion Pane","category":"widgets","icon":"","description":"Accordion Pane Block for Accordion.","example":{},"supports":{"html":false},"attributes":{"heading":{"type":"string","default":""},"headerTag":{"type":"string","default":"h3"}},"textdomain":"accordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"hs-blocks/accordion-pane","version":"1.0.1","title":"Accordion Pane","category":"widgets","icon":"","description":"Accordion Pane Block for Accordion.","example":{},"supports":{"html":false},"attributes":{"heading":{"type":"string","default":""},"headerTag":{"type":"string","default":"h3"},"iconPosition":{"type":"string","default":"right"},"iconType":{"type":"string","default":"plusminus"}},"textdomain":"accordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
 
 /***/ }),
 
@@ -26,8 +26,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _good_icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./good-icon */ "./src/accordion-pane/good-icon.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
@@ -36,8 +35,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
 /**
+ * TODO: to pass data from accordion to accordionpanes: see: https://wordpress.stackexchange.com/questions/370665/how-to-access-parent-blocks-attributes-in-nested-blocks-save-function
+ * 
+ * 
+ */
+
+/**
  * Retrieves the translation of text.
  */
+
 
 
 
@@ -48,10 +54,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /**
- * Uses isActive to open / close the pane in the editor. 
- * 
+ * Uses isActive to open / close the pane in the editor.
+ *
  * On frontend pane will be opened by script from accordion block.
- * 
+ *
  * @return {Element} Element to render.
  */
 
@@ -62,36 +68,55 @@ function Edit({
 }) {
   const {
     heading,
-    headerTag
+    headerTag,
+    iconPosition,
+    iconType
   } = attributes;
   const [isActive, setIsActive] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
   const toggleActive = () => {
     setIsActive(!isActive);
   };
-  const CONTENT_TEMPLATE = [['core/paragraph', {
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Add content...', 'accordion')
+  const CONTENT_TEMPLATE = [["core/paragraph", {
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Add content...", "accordion")
   }]];
 
   // Retrieve header-tag from the parent block
-  const parentHeaderTag = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useSelect)(select => {
+  // This way of getting attributes from parent block can maybe replace the use of data attributes
+  const parentAttributes = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useSelect)(select => {
     const {
       getBlockParentsByBlockName,
       getBlock
-    } = select('core/block-editor');
-    const parentId = getBlockParentsByBlockName(clientId, 'hs-blocks/accordion')[0];
+    } = select("core/block-editor");
+    const parentId = getBlockParentsByBlockName(clientId, "hs-blocks/accordion")[0];
     if (parentId) {
       const parentBlock = getBlock(parentId);
-      return parentBlock?.attributes?.headerTag || 'h2'; // Default to 'h2' if not set
+      return parentBlock?.attributes;
     }
-    return 'h3'; // Default to 'h3' if no parent block
+    return false;
   }, [clientId]);
 
   // Update the headerTag attribute if it differs from the parentHeaderTag
-  if (headerTag !== parentHeaderTag) {
-    setAttributes({
-      headerTag: parentHeaderTag
-    });
-  }
+
+  const parentHeaderTag = parentAttributes ? parentAttributes.headerTag : "h3";
+  const parentIconPosition = parentAttributes ? parentAttributes.iconPosition : "right";
+  const parentIconType = parentAttributes ? parentAttributes.iconType : "plusminus";
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
+    if (parentHeaderTag !== headerTag) {
+      setAttributes({
+        headerTag: parentHeaderTag
+      });
+    }
+    if (parentIconPosition !== iconPosition) {
+      setAttributes({
+        iconPosition: parentIconPosition
+      });
+    }
+    if (parentIconType !== iconType) {
+      setAttributes({
+        iconType: parentIconType
+      });
+    }
+  }, [parentHeaderTag, parentIconPosition, parentIconType]);
 
   // Function to generate a sanitized anchor ID from the heading text
   //    const generateAnchor = (text) => {
@@ -101,35 +126,36 @@ function Edit({
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
-      className: isActive ? 'active' : ''
+      className: isActive ? "active" : ""
     }),
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: "pane-header",
+      className: iconPosition === 'left' ? "pane-header justify-left" : "pane-header",
       style: {
-        color: 'var(--wp--custom--accordion--header--text-color)',
-        backgroundColor: 'var(--wp--custom--accordion--header--background-color)',
-        margin: 'var(--wp--custom--accordion--margin-top) var(--wp--custom--accordion--margin-right) var(--wp--custom--accordion--margin-bottom) var(--wp--custom--accordion--margin-left)',
-        padding: 'var(--wp--custom--accordion--padding-top) var(--wp--custom--accordion--padding-right) var(--wp--custom--accordion--padding-bottom) var(--wp--custom--accordion--padding-left)'
+        color: "var(--wp--custom--accordion--header--text-color)",
+        backgroundColor: "var(--wp--custom--accordion--header--background-color)",
+        margin: "var(--wp--custom--accordion--margin-top) var(--wp--custom--accordion--margin-right) var(--wp--custom--accordion--margin-bottom) var(--wp--custom--accordion--margin-left)",
+        padding: "var(--wp--custom--accordion--padding-top) var(--wp--custom--accordion--padding-right) var(--wp--custom--accordion--padding-bottom) var(--wp--custom--accordion--padding-left)"
       },
       onClick: toggleActive,
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+      children: [iconPosition === "left" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_good_icon__WEBPACK_IMPORTED_MODULE_2__.SelectedIcon, {
+        iconType: iconType
+      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
         tagName: headerTag,
         value: heading,
         onChange: value => setAttributes({
           heading: value
         }),
-        placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Add heading...', 'accordion')
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Dashicon, {
-        icon: 'arrow-down-alt2',
-        className: "pane-switch"
-      })]
+        placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Add heading...", "accordion")
+      }), iconPosition === "right" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_good_icon__WEBPACK_IMPORTED_MODULE_2__.SelectedIcon, {
+        iconType: iconType
+      }) : null]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
       className: "pane-content",
       style: {
-        margin: '0 var(--wp--custom--accordion--margin-right) 0 var(--wp--custom--accordion--margin-left)',
-        padding: '0 var(--wp--custom--accordion--padding-right) 0 var(--wp--custom--accordion--padding-left)',
-        color: 'var(--wp--custom--accordion--body--text-color)',
-        backgroundColor: 'var(--wp--custom--accordion--body--background-color)'
+        margin: "0 var(--wp--custom--accordion--margin-right) 0 var(--wp--custom--accordion--margin-left)",
+        padding: "0 var(--wp--custom--accordion--padding-right) 0 var(--wp--custom--accordion--padding-left)",
+        color: "var(--wp--custom--accordion--body--text-color)",
+        backgroundColor: "var(--wp--custom--accordion--body--background-color)"
       },
       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {
         template: CONTENT_TEMPLATE,
@@ -150,6 +176,74 @@ function Edit({
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
+
+/***/ }),
+
+/***/ "./src/accordion-pane/good-icon.js":
+/*!*****************************************!*\
+  !*** ./src/accordion-pane/good-icon.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   IconChevron: () => (/* binding */ IconChevron),
+/* harmony export */   IconChevronRight: () => (/* binding */ IconChevronRight),
+/* harmony export */   IconMinus: () => (/* binding */ IconMinus),
+/* harmony export */   IconPlus: () => (/* binding */ IconPlus),
+/* harmony export */   SelectedIcon: () => (/* binding */ SelectedIcon),
+/* harmony export */   goodIcon: () => (/* binding */ goodIcon)
+/* harmony export */ });
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+const goodIcon = (classes, path) => {
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.Icon, {
+    className: classes,
+    style: {
+      fill: "currentColor",
+      width: "1em",
+      height: "1em"
+    },
+    icon: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_0__.SVG, {
+      xmlns: "http://www.w3.org/2000/svg",
+      viewBox: "0 0 20 20",
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+        d: path
+      })
+    })
+  });
+};
+const IconPlus = () => {
+  return goodIcon("icon plus", "M10 1c-5 0-9 4-9 9s4 9 9 9 9-4 9-9-4-9-9-9zm0 16c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7zm1-11H9v3H6v2h3v3h2v-3h3V9h-3V6z");
+};
+const IconMinus = () => {
+  return goodIcon("icon minus", "M10 1c-5 0-9 4-9 9s4 9 9 9 9-4 9-9-4-9-9-9zm0 16c-3.9 0-7-3.1-7-7s3.1-7 7-7 7 3.1 7 7-3.1 7-7 7zM6 9v2h8V9H6z");
+};
+const IconChevron = () => {
+  return goodIcon("icon chevron rotating-180", "M5 6l5 5 5-5 2 1-7 7-7-7z");
+};
+const IconChevronRight = () => {
+  return goodIcon("icon chevron rotating-90", "M5 6l5 5 5-5 2 1-7 7-7-7z");
+};
+const SelectedIcon = ({
+  iconType
+}) => {
+  if (iconType === "plusminus") {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(IconPlus, {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(IconMinus, {})]
+    });
+  }
+  if (iconType === "chevron") {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(IconChevron, {});
+  }
+  if (iconType === "chevron-right") {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(IconChevronRight, {});
+  }
+};
 
 /***/ }),
 
@@ -228,8 +322,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _good_icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./good-icon */ "./src/accordion-pane/good-icon.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
 
@@ -256,7 +349,9 @@ function save({
     heading,
     headerBackgroundColor,
     headerTextColor,
-    headerTag
+    headerTag,
+    iconPosition,
+    iconType
   } = attributes;
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save({
@@ -265,20 +360,21 @@ function save({
       }
     }),
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: "pane-header",
+      className: iconPosition === 'left' ? "pane-header justify-left" : "pane-header",
       tabindex: "0",
       style: {
         padding: 'var(--wp--custom--accordion--padding-top) var(--wp--custom--accordion--padding-right) var(--wp--custom--accordion--padding-bottom) var(--wp--custom--accordion--padding-left)',
         backgroundColor: headerBackgroundColor,
         color: headerTextColor
       },
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
+      children: [iconPosition === "left" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_good_icon__WEBPACK_IMPORTED_MODULE_2__.SelectedIcon, {
+        iconType: iconType
+      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
         tagName: headerTag,
         value: heading
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Dashicon, {
-        icon: "arrow-down-alt2",
-        className: "pane-switch"
-      })]
+      }), iconPosition === "right" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_good_icon__WEBPACK_IMPORTED_MODULE_2__.SelectedIcon, {
+        iconType: iconType
+      }) : null]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "pane-content",
       style: {

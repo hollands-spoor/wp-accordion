@@ -8,7 +8,7 @@
   \**********************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"hs-blocks/accordion","version":"1.0.0","title":"Accordion","category":"widgets","icon":"","description":"Accordion block, uses Accordion-pane block.","example":{},"supports":{"html":false,"align":["wide","full"],"innerBlocks":true},"textdomain":"accordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"align":{"type":"string","default":"wide"},"collapsed":{"type":"boolean","default":false},"oneAtATime":{"type":"boolean","default":false},"headerTag":{"type":"string","default":"h3"},"headerTextColor":{"type":"string","default":""},"headerBackgroundColor":{"type":"string","default":""},"activeHeaderTextColor":{"type":"string","default":""},"activeHeaderBackgroundColor":{"type":"string","default":""},"bodyTextColor":{"type":"string","default":""},"bodyBackgroundColor":{"type":"string","default":""},"margin":{"type":"object","default":{"top":"0em","right":"0em","bottom":"0.1em","left":"0em"}},"padding":{"type":"object","default":{"top":"0.5em","right":"1em","bottom":"0.5em","left":"1em"}}}}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"hs-blocks/accordion","version":"1.0.1","title":"Accordion","category":"widgets","icon":"","description":"Accordion block, uses Accordion-pane block.","example":{},"supports":{"html":false,"align":["wide","full"],"innerBlocks":true},"textdomain":"accordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js","attributes":{"align":{"type":"string","default":"wide"},"collapsed":{"type":"boolean","default":false},"oneAtATime":{"type":"boolean","default":false},"headerTag":{"type":"string","default":"h3"},"iconPosition":{"type":"string","default":"right"},"iconType":{"type":"string","default":"plusminus"},"headerTextColor":{"type":"string","default":""},"headerBackgroundColor":{"type":"string","default":""},"activeHeaderTextColor":{"type":"string","default":""},"activeHeaderBackgroundColor":{"type":"string","default":""},"bodyTextColor":{"type":"string","default":""},"bodyBackgroundColor":{"type":"string","default":""},"margin":{"type":"object","default":{"top":"0em","right":"0em","bottom":"0.1em","left":"0em"}},"padding":{"type":"object","default":{"top":"0.5em","right":"1em","bottom":"0.5em","left":"1em"}}}}');
 
 /***/ }),
 
@@ -45,6 +45,8 @@ function Edit({
     collapsed,
     oneAtATime,
     headerTag,
+    iconPosition,
+    iconType,
     margin,
     padding,
     headerTextColor,
@@ -153,6 +155,38 @@ function Edit({
           }],
           onChange: value => setAttributes({
             headerTag: value
+          })
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RadioControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Icon Position', 'accordion'),
+          selected: iconPosition,
+          options: [{
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Right', 'accordion'),
+            value: 'right'
+          }, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Left', 'accordion'),
+            value: 'left'
+          }, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('None', 'accordion'),
+            value: 'none'
+          }],
+          onChange: value => setAttributes({
+            iconPosition: value
+          })
+        }), iconPosition !== 'none' && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RadioControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Icon Type', 'accordion'),
+          selected: iconType,
+          options: [{
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Chevron Down', 'accordion'),
+            value: 'chevron'
+          }, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Chevron Right', 'accordion'),
+            value: 'chevron-right'
+          }, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Plus/Minus', 'accordion'),
+            value: 'plusminus'
+          }],
+          onChange: value => setAttributes({
+            iconType: value
           })
         })]
       })
@@ -305,6 +339,8 @@ function save({
     collapsed,
     oneAtATime,
     headerTag,
+    iconPosition,
+    iconType,
     headerTextColor,
     headerBackgroundColor,
     activeHeaderTextColor,
@@ -352,11 +388,11 @@ function save({
   };
 
   // Generate block properties including inline styles
+  // Add attributes that are needed by view script as data attributes
   const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps.save({
     style: getStyle(),
     'data-one-at-a-time': oneAtATime,
     'data-collapsed': collapsed,
-    'data-header-tag': headerTag,
     'aria-expanded': collapsed ? 'false' : 'true',
     'aria-controls': 'pane-content-id'
   });

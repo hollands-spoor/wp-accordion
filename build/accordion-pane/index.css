@@ -12,4 +12,12 @@
   transform: rotate(180deg);
 }
 
+.wp-block-hs-blocks-accordion-pane.active .pane-header .icon.plus, .wp-block-hs-blocks-accordion-pane .pane-header .icon.minus {
+  display: none;
+}
+
+.wp-block-hs-blocks-accordion-pane.active .pane-header .icon.minus, .wp-block-hs-blocks-accordion-pane .pane-header .icon.plus {
+  display: block;
+}
+
 /*# sourceMappingURL=index.css.map*/

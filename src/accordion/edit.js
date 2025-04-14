@@ -1,11 +1,11 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InnerBlocks, InspectorControls, PanelColorSettings } from '@wordpress/block-editor';
-import { PanelBody, ToggleControl, Button, SelectControl, __experimentalBoxControl as BoxControl } from '@wordpress/components';
+import { PanelBody, ToggleControl, Button, SelectControl, RadioControl, __experimentalBoxControl as BoxControl } from '@wordpress/components';
 
 import './editor.scss';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-    const { collapsed, oneAtATime, headerTag, margin, padding, headerTextColor, headerBackgroundColor, activeHeaderTextColor, activeHeaderBackgroundColor, bodyTextColor, bodyBackgroundColor } = attributes;
+    const { collapsed, oneAtATime, headerTag, iconPosition, iconType, margin, padding, headerTextColor, headerBackgroundColor, activeHeaderTextColor, activeHeaderBackgroundColor, bodyTextColor, bodyBackgroundColor } = attributes;
 
     // Generate the inline styles based on block attributes
     const getStyle = () => {
@@ -92,6 +92,27 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
                         ] }
                         onChange={ ( value ) => setAttributes( { headerTag: value } ) }
                     />
+                    <RadioControl
+                        label={ __( 'Icon Position', 'accordion' ) }
+                        selected={ iconPosition }
+                        options={ [
+                            { label: __( 'Right', 'accordion' ), value: 'right' },
+                            { label: __( 'Left', 'accordion' ), value: 'left' },
+                            { label: __( 'None', 'accordion' ), value: 'none' },
+                        ] }
+                        onChange={ ( value ) => setAttributes( { iconPosition: value } ) }
+                    />
+                    { iconPosition !== 'none' && ( <RadioControl
+                        label={ __( 'Icon Type', 'accordion' ) }
+                        selected={ iconType }
+                        options={ [
+                            { label: __( 'Chevron Down', 'accordion' ), value: 'chevron' },
+                            { label: __( 'Chevron Right', 'accordion' ), value: 'chevron-right' },
+                            { label: __( 'Plus/Minus', 'accordion' ), value: 'plusminus' },
+                        ] }
+                        onChange={ ( value ) => setAttributes( { iconType: value } ) }
+                    /> ) }
+
 
                 </PanelBody>
             </InspectorControls>

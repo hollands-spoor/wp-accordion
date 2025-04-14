@@ -4,7 +4,7 @@ Tags:              accordion, faq
 Donate link:       https://hollands-spoor.com/donate/
 Requires at least: 6.7
 Tested up to:      6.8
-Stable tag:        1.0.0
+Stable tag:        1.0.1
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -84,8 +84,6 @@ Add them to the theme.json like so:
             }
         }
     }
- 
- 
 }`
    
 
@@ -101,7 +99,14 @@ Yes. Just pull another good-accordion block into an open pane.
 == Screenshots ==
 
 1. Good Accordion
+2. Customised in block editor
+3. Customised in stylesheet
 
 
+== Changelog ==
 
+= 1.0.1 =
+*Release Date - 10 April 2025*
+
+* Minor bugfix in accordionpane header-tag.
 

@@ -11,6 +11,12 @@
     background-color: var(--wp--custom--accordion--header--background-color);
 }
 
+.wp-block-hs-blocks-accordion-pane > .pane-header.justify-left {
+    justify-content: flex-start;
+    gap: 0.5em;
+
+}
+
 .wp-block-hs-blocks-accordion-pane.active > .pane-header {
     color: var(--wp--custom--accordion--active--header--text-color);
     background-color: var(--wp--custom--accordion--active--header--background-color);
@@ -31,15 +37,34 @@
     max-height: unset;
 }
 
-.wp-block-hs-blocks-accordion-pane .pane-header .pane-switch {
+.wp-block-hs-blocks-accordion-pane .pane-header .icon {
     cursor: pointer;
+}
+
+.wp-block-hs-blocks-accordion-pane .rotating-90, .wp-block-hs-blocks-accordion-pane .rotating-180 {
     transition: transform var(--wp--custom--accordion--transition-time) ease-out;
 }
 
-.wp-block-hs-blocks-accordion-pane.active > .pane-header > .pane-switch {
-    transform: rotate(180deg);
-    transition: transform var(--wp--custom--accordion--transition-time) ease-out; /* Ensure transition applies on active state */
+.wp-block-hs-blocks-accordion-pane .rotating-90 {
+    transform: rotate(-90deg);
 }
+
+.wp-block-hs-blocks-accordion-pane.active > .pane-header > .rotating-90 {
+    transform: rotate(0deg);
+}
+
+.wp-block-hs-blocks-accordion-pane.active > .pane-header > .rotating-180 {
+    transform: rotate(-180deg);
+}
+
+.wp-block-hs-blocks-accordion-pane.active > .pane-header > .icon.plus, .wp-block-hs-blocks-accordion-pane > .pane-header > .icon.minus {
+    display: none;
+}
+
+.wp-block-hs-blocks-accordion-pane.active > .pane-header > .icon.minus, .wp-block-hs-blocks-accordion-pane > .pane-header > .icon.plus {
+    display: block;
+}
+
 
 /* See 9.4 / 9.5 of https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo */
 
