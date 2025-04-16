@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "hs-blocks/accordion-pane",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"title": "Accordion Pane",
 	"category": "widgets",
 	"icon": "",
@@ -16,20 +16,19 @@
             "type": "string",
             "default": ""
         },
-		"headerTag": {
-			"type": "string",
-			"default": "h3"
-		},
-		"iconPosition" : {
-			"type": "string",
-			"default": "right"
-		},
-		"iconType" : {
-			"type": "string",
-			"default": "plusminus"
+		"paneSettings" : {
+			"type": "object",
+			"default": {
+				"headerTag" : "h3",
+				"iconPosition" : "right",
+				"iconType" : "plusminus"
+			}
 		}
     },
- 	"textdomain": "accordion",
+	"usesContext": [
+		"hs-blocks/accordion"
+	],
+	"textdomain": "accordion",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css"

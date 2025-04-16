@@ -32,3 +32,7 @@ deploy.bat
 
 # dotenv environment variables file
 .env
+
+# wp-env local environment variables file
+wp-env.json
+.env.local

@@ -4,7 +4,7 @@ Tags:              accordion, faq
 Donate link:       https://hollands-spoor.com/donate/
 Requires at least: 6.7
 Tested up to:      6.8
-Stable tag:        1.0.1
+Stable tag:        1.0.2
 Requires PHP:      7.4
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -94,7 +94,7 @@ The pane-headers have a tab-index. If the Enter-key is pressed while a pane-head
 
 = Can I nest the accordion block into another accordion? =
 
-Yes. Just pull another good-accordion block into an open pane.
+Yes. Just pull another good-accordion block into the open pane of another good-accordion block.
 
 == Screenshots ==
 
@@ -105,8 +105,17 @@ Yes. Just pull another good-accordion block into an open pane.
 
 == Changelog ==
 
+= 1.0.2 =
+
+*Release Date - 14 April 2025*
+
+* Replaced Dashicons with some SVG sources
+* Toggle switch for icon-position in header pane
+* Updated translation
+* Added nl_NL-formal translation
+
 = 1.0.1 =
 *Release Date - 10 April 2025*
 
-* Minor bugfix in accordionpane header-tag.
+* Minor bugfix in accordionpane header-tag
 

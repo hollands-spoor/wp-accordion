@@ -14,9 +14,7 @@
 import { __ } from "@wordpress/i18n";
 import { useBlockProps, InnerBlocks, RichText } from "@wordpress/block-editor";
 import { SelectedIcon } from "./good-icon";
-
-import { useEffect, useState } from "@wordpress/element";
-import { useSelect } from "@wordpress/data";
+import { useState } from "@wordpress/element";
 //import DOMPurify from 'dompurify'; // Import a sanitizer library
 
 import "./editor.scss";
@@ -28,8 +26,11 @@ import "./editor.scss";
  *
  * @return {Element} Element to render.
  */
-export default function Edit({ attributes, setAttributes, clientId }) {
-	const { heading, headerTag, iconPosition, iconType } = attributes;
+export default function Edit({ attributes, setAttributes, context }) {
+	const { heading, paneSettings } = attributes;
+	console.log( "paneSettings", paneSettings );
+	
+	
 	const [isActive, setIsActive] = useState(false);
 
 	const toggleActive = () => {
@@ -40,54 +41,15 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 		["core/paragraph", { placeholder: __("Add content...", "accordion") }],
 	];
 
-	// Retrieve header-tag from the parent block
-	// This way of getting attributes from parent block can maybe replace the use of data attributes
-	const parentAttributes = useSelect(
-		(select) => {
-			const { getBlockParentsByBlockName, getBlock } =
-				select("core/block-editor");
-			const parentId = getBlockParentsByBlockName(
-				clientId,
-				"hs-blocks/accordion",
-			)[0];
-			if (parentId) {
-				const parentBlock = getBlock(parentId);
-				return parentBlock?.attributes;
-			}
-			return false;
-		},
-		[clientId],
-	);
-
-	// Update the headerTag attribute if it differs from the parentHeaderTag
-
-	const parentHeaderTag = parentAttributes ? parentAttributes.headerTag : "h3";
-	const parentIconPosition = parentAttributes ? parentAttributes.iconPosition : "right";
-	const parentIconType = parentAttributes ? parentAttributes.iconType : "plusminus";
-	useEffect(() => {
-		if (parentHeaderTag !== headerTag) {
-			setAttributes({ headerTag: parentHeaderTag });
-		}
-		if (parentIconPosition !== iconPosition) {
-			setAttributes({ iconPosition: parentIconPosition });
-		}
-		if (parentIconType !== iconType) {
-			setAttributes({ iconType: parentIconType });
-		}
-
-	}, [parentHeaderTag, parentIconPosition, parentIconType]);
-
-	// Function to generate a sanitized anchor ID from the heading text
-	//    const generateAnchor = (text) => {
-	//        return DOMPurify.sanitize(text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''));
-	//    };
-	// add id={ generateAnchor(heading) } to div.pane-header tag
-
+	console.log( 'context provided: ', context );
+	if( paneSettings !== context['hs-blocks/accordion'] ) {
+		setAttributes({ paneSettings: context['hs-blocks/accordion'] });
+	}
 
 	return (
 		<div {...useBlockProps({ className: isActive ? "active" : "" })}>
 			<div
-				className={ ( iconPosition === 'left' ) ? "pane-header justify-left" : "pane-header" }
+				className={ ( paneSettings.iconPosition === 'left' ) ? "pane-header justify-left" : "pane-header" }
 				style={{
 					color: "var(--wp--custom--accordion--header--text-color)",
 					backgroundColor:
@@ -100,16 +62,16 @@ export default function Edit({ attributes, setAttributes, clientId }) {
 				onClick={toggleActive}
 			>
 
-				{ iconPosition === "left" ? <SelectedIcon iconType={ iconType } /> : null }
+				{ paneSettings.iconPosition === "left" ? <SelectedIcon iconType={ paneSettings.iconType } /> : null }
 
 				<RichText
-					tagName={headerTag}
+					tagName={paneSettings.headerTag}
 					value={heading}
 					onChange={(value) => setAttributes({ heading: value })}
 					placeholder={__("Add heading...", "accordion")}
 				/>
 
-				{ iconPosition === "right" ? <SelectedIcon iconType={ iconType } /> : null }
+				{ paneSettings.iconPosition === "right" ? <SelectedIcon iconType={ paneSettings.iconType } /> : null }
 
 			</div>
 			<div

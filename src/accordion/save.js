@@ -1,7 +1,7 @@
 import { useBlockProps, InnerBlocks } from '@wordpress/block-editor';
 
 export default function save( { attributes } ) {
-    const { collapsed, oneAtATime, headerTag, iconPosition, iconType, headerTextColor, headerBackgroundColor, activeHeaderTextColor, activeHeaderBackgroundColor, bodyTextColor, bodyBackgroundColor,margin, padding } = attributes;
+    const { collapsed, oneAtATime, headerTextColor, headerBackgroundColor, activeHeaderTextColor, activeHeaderBackgroundColor, bodyTextColor, bodyBackgroundColor, margin, padding } = attributes;
 
     // Function to generate inline styles based on block attributes
     const getStyle = () => {

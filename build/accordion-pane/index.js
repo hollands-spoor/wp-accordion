@@ -8,7 +8,7 @@
   \***************************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"hs-blocks/accordion-pane","version":"1.0.1","title":"Accordion Pane","category":"widgets","icon":"","description":"Accordion Pane Block for Accordion.","example":{},"supports":{"html":false},"attributes":{"heading":{"type":"string","default":""},"headerTag":{"type":"string","default":"h3"},"iconPosition":{"type":"string","default":"right"},"iconType":{"type":"string","default":"plusminus"}},"textdomain":"accordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"hs-blocks/accordion-pane","version":"1.0.2","title":"Accordion Pane","category":"widgets","icon":"","description":"Accordion Pane Block for Accordion.","example":{},"supports":{"html":false},"attributes":{"heading":{"type":"string","default":""},"paneSettings":{"type":"object","default":{"headerTag":"h3","iconPosition":"right","iconType":"plusminus"}}},"usesContext":["hs-blocks/accordion"],"textdomain":"accordion","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css"}');
 
 /***/ }),
 
@@ -29,11 +29,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _good_icon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./good-icon */ "./src/accordion-pane/good-icon.js");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
 /* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
-/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./editor.scss */ "./src/accordion-pane/editor.scss");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.scss */ "./src/accordion-pane/editor.scss");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__);
 /**
  * TODO: to pass data from accordion to accordionpanes: see: https://wordpress.stackexchange.com/questions/370665/how-to-access-parent-blocks-attributes-in-nested-blocks-save-function
  * 
@@ -43,7 +41,6 @@ __webpack_require__.r(__webpack_exports__);
 /**
  * Retrieves the translation of text.
  */
-
 
 
 
@@ -64,14 +61,13 @@ __webpack_require__.r(__webpack_exports__);
 function Edit({
   attributes,
   setAttributes,
-  clientId
+  context
 }) {
   const {
     heading,
-    headerTag,
-    iconPosition,
-    iconType
+    paneSettings
   } = attributes;
+  console.log("paneSettings", paneSettings);
   const [isActive, setIsActive] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)(false);
   const toggleActive = () => {
     setIsActive(!isActive);
@@ -79,57 +75,18 @@ function Edit({
   const CONTENT_TEMPLATE = [["core/paragraph", {
     placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Add content...", "accordion")
   }]];
-
-  // Retrieve header-tag from the parent block
-  // This way of getting attributes from parent block can maybe replace the use of data attributes
-  const parentAttributes = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_4__.useSelect)(select => {
-    const {
-      getBlockParentsByBlockName,
-      getBlock
-    } = select("core/block-editor");
-    const parentId = getBlockParentsByBlockName(clientId, "hs-blocks/accordion")[0];
-    if (parentId) {
-      const parentBlock = getBlock(parentId);
-      return parentBlock?.attributes;
-    }
-    return false;
-  }, [clientId]);
-
-  // Update the headerTag attribute if it differs from the parentHeaderTag
-
-  const parentHeaderTag = parentAttributes ? parentAttributes.headerTag : "h3";
-  const parentIconPosition = parentAttributes ? parentAttributes.iconPosition : "right";
-  const parentIconType = parentAttributes ? parentAttributes.iconType : "plusminus";
-  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useEffect)(() => {
-    if (parentHeaderTag !== headerTag) {
-      setAttributes({
-        headerTag: parentHeaderTag
-      });
-    }
-    if (parentIconPosition !== iconPosition) {
-      setAttributes({
-        iconPosition: parentIconPosition
-      });
-    }
-    if (parentIconType !== iconType) {
-      setAttributes({
-        iconType: parentIconType
-      });
-    }
-  }, [parentHeaderTag, parentIconPosition, parentIconType]);
-
-  // Function to generate a sanitized anchor ID from the heading text
-  //    const generateAnchor = (text) => {
-  //        return DOMPurify.sanitize(text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''));
-  //    };
-  // add id={ generateAnchor(heading) } to div.pane-header tag
-
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+  console.log('context provided: ', context);
+  if (paneSettings !== context['hs-blocks/accordion']) {
+    setAttributes({
+      paneSettings: context['hs-blocks/accordion']
+    });
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)({
       className: isActive ? "active" : ""
     }),
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-      className: iconPosition === 'left' ? "pane-header justify-left" : "pane-header",
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+      className: paneSettings.iconPosition === 'left' ? "pane-header justify-left" : "pane-header",
       style: {
         color: "var(--wp--custom--accordion--header--text-color)",
         backgroundColor: "var(--wp--custom--accordion--header--background-color)",
@@ -137,19 +94,19 @@ function Edit({
         padding: "var(--wp--custom--accordion--padding-top) var(--wp--custom--accordion--padding-right) var(--wp--custom--accordion--padding-bottom) var(--wp--custom--accordion--padding-left)"
       },
       onClick: toggleActive,
-      children: [iconPosition === "left" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_good_icon__WEBPACK_IMPORTED_MODULE_2__.SelectedIcon, {
-        iconType: iconType
-      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
-        tagName: headerTag,
+      children: [paneSettings.iconPosition === "left" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_good_icon__WEBPACK_IMPORTED_MODULE_2__.SelectedIcon, {
+        iconType: paneSettings.iconType
+      }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
+        tagName: paneSettings.headerTag,
         value: heading,
         onChange: value => setAttributes({
           heading: value
         }),
         placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)("Add heading...", "accordion")
-      }), iconPosition === "right" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_good_icon__WEBPACK_IMPORTED_MODULE_2__.SelectedIcon, {
-        iconType: iconType
+      }), paneSettings.iconPosition === "right" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_good_icon__WEBPACK_IMPORTED_MODULE_2__.SelectedIcon, {
+        iconType: paneSettings.iconType
       }) : null]
-    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
       className: "pane-content",
       style: {
         margin: "0 var(--wp--custom--accordion--margin-right) 0 var(--wp--custom--accordion--margin-left)",
@@ -157,7 +114,7 @@ function Edit({
         color: "var(--wp--custom--accordion--body--text-color)",
         backgroundColor: "var(--wp--custom--accordion--body--background-color)"
       },
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InnerBlocks, {
         template: CONTENT_TEMPLATE,
         templateLock: false
       })
@@ -347,12 +304,9 @@ function save({
 }) {
   const {
     heading,
-    headerBackgroundColor,
-    headerTextColor,
-    headerTag,
-    iconPosition,
-    iconType
+    paneSettings
   } = attributes;
+  const justifyLeft = paneSettings.iconPosition === 'left' ? "justify-left" : "";
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save({
       style: {
@@ -360,20 +314,18 @@ function save({
       }
     }),
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-      className: iconPosition === 'left' ? "pane-header justify-left" : "pane-header",
+      className: `pane-header ${justifyLeft}`,
       tabindex: "0",
       style: {
-        padding: 'var(--wp--custom--accordion--padding-top) var(--wp--custom--accordion--padding-right) var(--wp--custom--accordion--padding-bottom) var(--wp--custom--accordion--padding-left)',
-        backgroundColor: headerBackgroundColor,
-        color: headerTextColor
+        padding: 'var(--wp--custom--accordion--padding-top) var(--wp--custom--accordion--padding-right) var(--wp--custom--accordion--padding-bottom) var(--wp--custom--accordion--padding-left)'
       },
-      children: [iconPosition === "left" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_good_icon__WEBPACK_IMPORTED_MODULE_2__.SelectedIcon, {
-        iconType: iconType
+      children: [paneSettings.iconPosition === "left" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_good_icon__WEBPACK_IMPORTED_MODULE_2__.SelectedIcon, {
+        iconType: paneSettings.iconType
       }) : null, /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
-        tagName: headerTag,
+        tagName: paneSettings.headerTag,
         value: heading
-      }), iconPosition === "right" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_good_icon__WEBPACK_IMPORTED_MODULE_2__.SelectedIcon, {
-        iconType: iconType
+      }), paneSettings.iconPosition === "right" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_good_icon__WEBPACK_IMPORTED_MODULE_2__.SelectedIcon, {
+        iconType: paneSettings.iconType
       }) : null]
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
       className: "pane-content",
@@ -478,16 +430,6 @@ module.exports = window["wp"]["blocks"];
 /***/ ((module) => {
 
 module.exports = window["wp"]["components"];
-
-/***/ }),
-
-/***/ "@wordpress/data":
-/*!******************************!*\
-  !*** external ["wp","data"] ***!
-  \******************************/
-/***/ ((module) => {
-
-module.exports = window["wp"]["data"];
 
 /***/ }),
 

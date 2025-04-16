@@ -5,7 +5,7 @@ import { PanelBody, ToggleControl, Button, SelectControl, RadioControl, __experi
 import './editor.scss';
 
 export default function Edit( { attributes, setAttributes, clientId } ) {
-    const { collapsed, oneAtATime, headerTag, iconPosition, iconType, margin, padding, headerTextColor, headerBackgroundColor, activeHeaderTextColor, activeHeaderBackgroundColor, bodyTextColor, bodyBackgroundColor } = attributes;
+    const { collapsed, oneAtATime, paneSettings, margin, padding, headerTextColor, headerBackgroundColor, activeHeaderTextColor, activeHeaderBackgroundColor, bodyTextColor, bodyBackgroundColor } = attributes;
 
     // Generate the inline styles based on block attributes
     const getStyle = () => {
@@ -79,7 +79,7 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
                     />
                     <SelectControl
                         label={ __( 'Header Tag', 'accordion' ) }
-                        value={ headerTag }
+                        value={ paneSettings.headerTag }
                         options={ [
                             { label: 'h1', value: 'h1' },
                             { label: 'h2', value: 'h2' },
@@ -90,27 +90,27 @@ export default function Edit( { attributes, setAttributes, clientId } ) {
                             { label: 'p', value: 'p' },
                             { label: 'div', value: 'div' },
                         ] }
-                        onChange={ ( value ) => setAttributes( { headerTag: value } ) }
+                        onChange={ ( value ) => setAttributes( { paneSettings: { ...paneSettings, headerTag: value } } ) }
                     />
                     <RadioControl
                         label={ __( 'Icon Position', 'accordion' ) }
-                        selected={ iconPosition }
+                        selected={ paneSettings.iconPosition }
                         options={ [
                             { label: __( 'Right', 'accordion' ), value: 'right' },
                             { label: __( 'Left', 'accordion' ), value: 'left' },
                             { label: __( 'None', 'accordion' ), value: 'none' },
                         ] }
-                        onChange={ ( value ) => setAttributes( { iconPosition: value } ) }
+                        onChange={ ( value ) => setAttributes( { paneSettings: { ...paneSettings, iconPosition: value } } ) }
                     />
-                    { iconPosition !== 'none' && ( <RadioControl
+                    { paneSettings.iconPosition !== 'none' && ( <RadioControl
                         label={ __( 'Icon Type', 'accordion' ) }
-                        selected={ iconType }
+                        selected={ paneSettings.iconType }
                         options={ [
                             { label: __( 'Chevron Down', 'accordion' ), value: 'chevron' },
                             { label: __( 'Chevron Right', 'accordion' ), value: 'chevron-right' },
                             { label: __( 'Plus/Minus', 'accordion' ), value: 'plusminus' },
                         ] }
-                        onChange={ ( value ) => setAttributes( { iconType: value } ) }
+                        onChange={ ( value ) => setAttributes( { paneSettings: { ...paneSettings, iconType: value } } ) }
                     /> ) }
 
 

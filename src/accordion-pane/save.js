@@ -17,26 +17,25 @@ import { SelectedIcon } from './good-icon';
 // add id={ generateAnchor(heading) } to div.pane-header tag
 
 export default function save({ attributes }) {
-    const { heading, headerBackgroundColor, headerTextColor, headerTag, iconPosition, iconType } = attributes;
+    const { heading, paneSettings } = attributes;
+    const justifyLeft = paneSettings.iconPosition === 'left' ? "justify-left" : "";
 
     return (
         <div { ...useBlockProps.save({ style: { margin: 'var(--wp--custom--accordion--margin-top) var(--wp--custom--accordion--margin-right) var(--wp--custom--accordion--margin-bottom) var(--wp--custom--accordion--margin-left)'} }) }>
         
             <div 
-				className={ ( iconPosition === 'left' ) ? "pane-header justify-left" : "pane-header" }
-				tabindex="0" style={{ padding: 'var(--wp--custom--accordion--padding-top) var(--wp--custom--accordion--padding-right) var(--wp--custom--accordion--padding-bottom) var(--wp--custom--accordion--padding-left)',
-                 backgroundColor: headerBackgroundColor, 
-                 color: headerTextColor 
+				className={ `pane-header ${justifyLeft}` }
+				tabindex="0" style={{ padding: 'var(--wp--custom--accordion--padding-top) var(--wp--custom--accordion--padding-right) var(--wp--custom--accordion--padding-bottom) var(--wp--custom--accordion--padding-left)'
                 }}
             >
-				{ iconPosition === "left" ? <SelectedIcon iconType={ iconType } /> : null }
+				{ paneSettings.iconPosition === "left" ? <SelectedIcon iconType={ paneSettings.iconType } /> : null }
 				
                 <RichText.Content
-                    tagName={headerTag}
+                    tagName={paneSettings.headerTag}
                     value={ heading }
                 />
 				
-				{ iconPosition === "right" ? <SelectedIcon iconType={ iconType } /> : null }
+				{ paneSettings.iconPosition === "right" ? <SelectedIcon iconType={ paneSettings.iconType } /> : null }
 
             </div>
             <div className="pane-content" style={{ padding: '0 var(--wp--custom--accordion--padding-right) 0 var(--wp--custom--accordion--padding-left)', color: 'var(--wp--custom--accordion--body--text-color)', backgroundColor: 'var(--wp--custom--accordion--body--background-color)' }}>
